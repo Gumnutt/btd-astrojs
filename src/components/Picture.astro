@@ -13,13 +13,6 @@ export interface Props {
   imageIds: string[]
   hasDetail: boolean
 }
-
-// const images = imageData.data.map((image) => {
-//   const data = getAssetData(image.directus_files_id)
-//   console.log(data)
-//   images = data
-//   return
-// })
 ---
 
 <picture>
@@ -31,12 +24,9 @@ export interface Props {
         .then((response) => response.json())
         .then((r) => r.data)
       const type = response.type.split("/")[1]
-      console.log(response.type)
       if (!["jpg", "jpeg"].includes(type)) {
-        console.log("not a jpg")
         return <source srcset={url} type={response.type} />
       }
-      console.log("is a jpg")
       return <img src={url} />
     })
   }

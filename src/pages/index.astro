@@ -11,8 +11,13 @@ const postsData = await directus.items("posts").readByQuery({
   fields: ["*"],
   meta: "total_count",
 })
-const posts = postsData.data
-const homeData = homepageData.data
+
+export interface Props {
+  posts: any
+  homeData: any
+}
+
+const { posts = postsData.data, homeData = homepageData.data } = Astro.props
 ---
 
 <MainLayout title="Brynn the dev" bodyClasses="home--page" classes="home">
