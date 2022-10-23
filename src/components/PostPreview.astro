@@ -1,0 +1,20 @@
+---
+export interface Props {
+  title: string
+  short_content: string
+  slug: string
+}
+
+const { title, short_content, slug } = Astro.props
+---
+
+<li>
+  <div class="wrapper">
+    <a href={`/posts/${slug}`}>
+      <div class="list--item">
+        <h3>{title}</h3>
+        <p>{short_content}</p>
+      </div>
+    </a>
+  </div>
+</li>

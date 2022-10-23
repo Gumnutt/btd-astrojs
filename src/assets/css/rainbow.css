@@ -1,0 +1,67 @@
+@property --angle-1 {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+@property --angle-2 {
+  syntax: "<angle>";
+  initial-value: 60deg;
+  inherits: false;
+}
+@property --angle-3 {
+  syntax: "<angle>";
+  initial-value: 120deg;
+  inherits: false;
+}
+@property --angle-4 {
+  syntax: "<angle>";
+  initial-value: 180deg;
+  inherits: false;
+}
+@property --angle-5 {
+  syntax: "<angle>";
+  initial-value: 240deg;
+  inherits: false;
+}
+@property --angle-6 {
+  syntax: "<angle>";
+  initial-value: 300deg;
+  inherits: false;
+}
+
+.rainbow {
+  background: var(--gradient-18);
+  background: linear-gradient(var(--angle-1, 0deg), hsla(0 100% 50% / 80%), hsla(0 100% 50% / 0) 75%),
+    linear-gradient(var(--angle-2, 60deg), hsla(60 100% 50% / 80%), hsla(60 100% 50% / 0) 75%),
+    linear-gradient(var(--angle-3, 120deg), hsla(120 100% 50% / 80%), hsla(120 100% 50% / 0) 75%),
+    linear-gradient(var(--angle-4, 180deg), hsla(180 100% 50% / 80%), hsla(180 100% 50% / 0) 75%),
+    linear-gradient(var(--angle-5, 240deg), hsla(240 100% 50% / 80%), hsla(240 100% 50% / 0) 75%),
+    linear-gradient(var(--angle-6, 300deg), hsla(300 100% 50% / 80%), hsla(300 100% 50% / 0) 75%);
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  color: var(--gray-8);
+  animation: 10s infinite background-rotate;
+  header {
+    nav {
+      a {
+        color: var(--gray-8);
+      }
+    }
+  }
+  a {
+    color: var(--blue-6);
+  }
+}
+
+@keyframes background-rotate {
+  to {
+    --angle-1: 359deg;
+    --angle-2: 59deg;
+    --angle-3: 119deg;
+    --angle-4: 179deg;
+    --angle-5: 239deg;
+    --angle-6: 299deg;
+  }
+}

@@ -1,0 +1,27 @@
+---
+import MainLayout from "../layouts/MainLayout.astro"
+import PostCard from "../components/PostCard.astro"
+
+import { getDirectusClient } from "../utils/getDirectusClient"
+const directus = await getDirectusClient()
+const postsData = await directus.items("posts").readByQuery({
+  fields: ["*"],
+  meta: "total_count",
+})
+const posts = postsData.data
+---
+
+<MainLayout title="Brynn the dev | Posts">
+  <main class="wrapper posts">
+    <div class="posts--header">
+      <h1>Read a thing</h1>
+      <p>
+        If there's one thing I love even more than you, it's teaching you the ins and outs of web development. Let's see if I can show you something
+        new!
+      </p>
+    </div>
+    <ul class="posts--grid">
+      {posts.map((post) => <PostCard title={post.title} short_content={post.short_content} slug={post.slug} />)}
+    </ul>
+  </main>
+</MainLayout>

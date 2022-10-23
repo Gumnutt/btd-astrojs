@@ -1,0 +1,25 @@
+---
+export interface Props {
+  title: string
+  description: string
+  images: string[]
+}
+
+import Picture from "./Picture.astro"
+
+const { title, description, images } = Astro.props
+---
+
+<div class="wrapper">
+  <section class="hero">
+    <div class="hero--text">
+      <div></div>
+      <div>
+        <h2 class="hero--title">{title}</h2>
+        <p class="hero--subtext">{description}</p>
+      </div>
+      <p class="hero--text-small">Scroll. Go on.</p>
+    </div>
+    <Picture imageIds={images} hasDetail={true} />
+  </section>
+</div>

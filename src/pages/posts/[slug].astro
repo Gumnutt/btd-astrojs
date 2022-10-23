@@ -1,0 +1,46 @@
+---
+import { marked } from "marked"
+import moment from "moment"
+
+import MainLayout from "../../layouts/MainLayout.astro"
+import { getDirectusClient } from "../../utils/getDirectusClient"
+
+export async function getStaticPaths() {
+  const directus = await getDirectusClient()
+  const response = await directus.items("posts").readByQuery({
+    fields: ["*"],
+  })
+
+  return response.data.map(({ title, text, slug, date_created, date_updated }) => {
+    const timeToRead = Math.ceil(marked(text).trim().split(/\s+/).length / 200)
+    const published = moment(date_created).format("MMM Do")
+    return {
+      params: { slug },
+      props: { title, text, date_created, date_updated, timeToRead, published },
+    }
+  })
+}
+const { title, text, date_created, date_updated, timeToRead, published } = Astro.props
+---
+
+<MainLayout>
+  <main class="wrapper">
+    <article class="post">
+      <div class="post--header">
+        <div class="post--header-inner">
+          <div class="header--data">
+            <time>{published}</time>
+            <span>~</span>
+            <span>{timeToRead} min read</span>
+          </div>
+          <h1>{title}</h1>
+        </div>
+      </div>
+      <Fragment set:html={marked.parse(text)} />
+    </article>
+  </main>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script is:inline>
+    Prism.highlightAll()
+  </script>
+</MainLayout>

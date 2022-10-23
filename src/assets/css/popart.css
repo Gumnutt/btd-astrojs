@@ -1,0 +1,83 @@
+.popart {
+  background: white;
+  font-family: var(--font-sans);
+  color: var(--gray-9);
+  .hero {
+    --scale: 0.2;
+    picture {
+      scale: calc(1 - var(--scale));
+    }
+    .hero--detail {
+      background-image: repeating-linear-gradient(-45deg, white, white 10px, black 10px, black 20px);
+      scale: calc(1 + var(--scale));
+    }
+    .hero--text {
+      padding-top: calc(var(--size-7) - 0.4rem);
+    }
+  }
+  header {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    background: linear-gradient(
+      135deg,
+      transparent,
+      transparent 25%,
+      black 25%,
+      black calc(25% + 3px),
+      white calc(25% + 3px),
+      white calc(25% + 70px),
+      var(--yellow-5) calc(25% + 3px)
+    );
+    border-bottom: 3px solid var(--gray-9);
+    position: relative;
+    /*&:before {
+      content: "";
+      background-image: radial-gradient(black 30%, transparent 10%), radial-gradient(black 30%, transparent 30%);
+      background-position: 0 0, 5px 5px;
+      background-size: 10px 10px;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      z-index: -1;
+    }*/
+    nav {
+      padding-left: var(--size-4);
+      padding-right: var(--size-4);
+      .hero--intro {
+        background: white;
+        width: fit-content;
+        padding: 0.4rem;
+        color: var(--gray-9);
+      }
+      a {
+        color: var(--gray-9);
+      }
+    }
+  }
+  a {
+    color: var(--blue-6);
+  }
+  .posts--list {
+    background: white;
+    position: relative;
+    z-index: 1;
+    li {
+      background: var(--yellow-4);
+    }
+  }
+  .posts--grid {
+    &:before {
+      background-image: radial-gradient(black 30%, transparent 10%), radial-gradient(black 30%, transparent 30%);
+      background-position: 0 0, 5px 5px;
+      background-size: 10px 10px;
+      background-color: white;
+    }
+    .post--card,
+    .project--card {
+      background: white;
+      border: 3px solid black;
+      color: var(--gray-9);
+    }
+  }
+}

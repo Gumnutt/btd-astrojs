@@ -1,0 +1,24 @@
+.read--button {
+  width: 80px;
+  height: 80px;
+  display: none;
+  border-radius: 50%;
+  overflow: hidden;
+  color: var(--gray-9);
+  @media (--md-n-above) {
+    display: grid;
+  }
+  p {
+    display: grid;
+    place-items: center;
+    width: 80px;
+    height: 80px;
+    margin: 0;
+    background-color: white;
+    font-size: var(--font-size-0);
+    transition: all 150ms ease-out;
+    &:last-of-type {
+      background: var(--yellow-4);
+    }
+  }
+}

@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@200;300;400;600;700&display=swap");
+
+@property --button-accent {
+  syntax: "<color>";
+  initial-value: black;
+  inherits: false;
+}
+
+* {
+  margin: var(--size-fluid-0);
+  box-sizing: border-box;
+  padding: var(--size-fluid-0);
+  font-family: "Nunito", system-ui;
+  font-weight: var(--font-weight-4);
+}
+
+:root {
+  --font-size: 16px;
+  --rhythm: calc(var(--font-size) * var(--font-lineheight-4));
+}
+
+html {
+  background: white;
+  font-family: var(--font-sans);
+  color: var(--gray-8);
+  @media (--motionOK) {
+    transition: all 300ms var(--ease-2);
+  }
+  @media (--OSdark) {
+    background: var(--gray-9);
+    color: var(--gray-1);
+  }
+}
+.home--page {
+  overflow-y: hidden;
+}
+
+.wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 54ch;
+  padding-left: var(--size-4);
+  padding-right: var(--size-4);
+  @media (--md-n-above) {
+    max-width: 1280px;
+    padding-left: var(--size-7);
+    padding-right: var(--size-7);
+  }
+}
+
+button {
+  --button-accent: white;
+  --x-axis: -1px;
+  --y-axis: 1px;
+  appearance: none;
+  transition: all 300ms;
+  box-shadow: 0px 0px 0px 0px;
+  color: var(--button-accent);
+  border: 3px solid var(--button-accent);
+  border-radius: var(--radius-2);
+  padding: calc(var(--rhythm) / 2) var(--rhythm);
+  background: none;
+  cursor: pointer;
+  font-size: var(--font-size-3);
+  &:hover {
+    box-shadow: calc(var(--x-axis) * 1) calc(var(--y-axis) * 1) 0px 0px var(--button-accent),
+      calc(var(--x-axis) * 2) calc(var(--y-axis) * 2) 0px 0px var(--button-accent),
+      calc(var(--x-axis) * 3) calc(var(--y-axis) * 3) 0px 0px var(--button-accent),
+      calc(var(--x-axis) * 4) calc(var(--y-axis) * 4) 0px 0px var(--button-accent),
+      calc(var(--x-axis) * 5) calc(var(--y-axis) * 5) 0px 0px var(--button-accent),
+      calc(var(--x-axis) * 6) calc(var(--y-axis) * 6) 0px 0px var(--button-accent),
+      calc(var(--x-axis) * 7) calc(var(--y-axis) * 7) 0px 0px var(--button-accent),
+      calc(var(--x-axis) * 8) calc(var(--y-axis) * 8) 0px 0px var(--button-accent);
+    translate: calc(var(--y-axis) * 4) calc(var(--x-axis) * 4);
+  }
+  &:active {
+    box-shadow: 0px 0px 0px 0px;
+    translate: 0px 0px;
+  }
+}

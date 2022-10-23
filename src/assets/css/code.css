@@ -1,0 +1,50 @@
+code[class*="language-"],
+pre[class*="language-"] {
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  font-family: "Space Mono", monospace;
+  font-feature-settings: "ss04" on, "liga" off;
+  font-size: 18px;
+  line-height: 1.5em;
+  tab-size: 4;
+  hyphens: none;
+  width: 100%;
+}
+
+.selector {
+  color: var(--syntax-name);
+}
+
+.property {
+  color: var(--syntax-prop);
+}
+
+.function {
+  color: var(--syntax-fn);
+}
+
+.comment,
+.quote,
+.deletion {
+  color: var(--syntax-comment);
+}
+
+.keyword,
+.selector-tag,
+.literal,
+.title,
+.section,
+.doctag,
+.type,
+.name,
+.strong {
+  font-weight: bold;
+}
+
+.literal,
+.number {
+  color: var(--syntax-bool);
+}

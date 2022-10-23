@@ -1,0 +1,28 @@
+---
+import MainLayout from "../layouts/MainLayout.astro"
+import ProjectCard from "../components/ProjectCard.astro"
+
+import { getDirectusClient } from "../utils/getDirectusClient"
+const directus = await getDirectusClient()
+const projectsData = await directus.items("projects").readByQuery({
+  fields: ["*"],
+  meta: "total_count",
+})
+const projects = projectsData.data
+---
+
+<MainLayout title="Brynn the dev | Posts">
+  <main class="wrapper posts">
+    <div class="posts--header">
+      <h1>Look mum, I did a thing</h1>
+      <p>Every now and then I like to show off my work. Here's a few of my favourite projects.</p>
+    </div>
+    <ul class="posts--grid">
+      {
+        projects.map((project) => (
+          <ProjectCard title={project.title} short_content={project.short_description} slug={project.slug} imageId={project.image} />
+        ))
+      }
+    </ul>
+  </main>
+</MainLayout>

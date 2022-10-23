@@ -1,0 +1,13 @@
+.home {
+  @media (--md-n-above) {
+    position: relative;
+    top: calc(var(--size-10) * -1);
+    width: 100%;
+  }
+}
+.home--title {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 0 var(--size-10);
+  margin: var(--size-11) 0;
+}

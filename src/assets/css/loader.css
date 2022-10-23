@@ -1,0 +1,28 @@
+.loader {
+  display: grid;
+  place-items: center;
+  height: calc(100vh - var(--size-10) + 86px);
+}
+.pl {
+  display: block;
+  width: 8em;
+  height: 8em;
+  color: var(--yellow-4);
+}
+.pl__ring,
+.pl__ball1,
+.pl__ball2 {
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  transform-origin: 32px 32px;
+}
+.pl__ring {
+  animation-name: ring;
+}
+.pl__ball1 {
+  animation-name: ball1;
+}
+.pl__ball2 {
+  animation-name: ball2;
+}

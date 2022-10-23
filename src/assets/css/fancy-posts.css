@@ -1,0 +1,90 @@
+.fancy-posts {
+  --color: var(--yellow-5);
+  --shadow: var(--yellow-8);
+  --glare: hsl(0 0% 100% / 0.75);
+  --transition: 0.2s;
+  --font-size: var(--font-size-fluid-3);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--size-8);
+  a {
+    --hover: 0.4;
+    --pos: 0;
+    --padding: var(--size-4);
+    position: relative;
+    border-radius: var(--size-4);
+    padding: var(--padding);
+    text-decoration: none;
+    color: transparent;
+    display: flex;
+    flex-direction: column;
+    border: var(--size-2) solid var(--gray-8);
+    &:active {
+      --hover: 0;
+      h2,
+      p {
+        & :last-of-type {
+          --hover: 0;
+          --pos: 1;
+        }
+      }
+    }
+    &:hover {
+      --hover: 1;
+      --pos: 1;
+      h2,
+      p {
+        &:last-of-type {
+          transition: transform 0.2s, background-position calc(var(--hover) * 1.5s) calc(var(--hover) * 0.25s);
+        }
+      }
+      svg {
+        animation: sparkle 0.75s calc((var(--delay-step) * var(--d)) * 1s) both;
+      }
+    }
+    .text--container {
+      position: relative;
+    }
+    h2,
+    p {
+      display: inline-block;
+      transform: translate(calc(var(--hover) * (var(--font-size) * 0.1)), calc(var(--hover) * (var(--font-size) * -0.1)));
+      transition: all 0.2s;
+      font-size: calc(var(--font-size) * 1.5);
+      font-weight: var(--font-weight-9);
+      text-decoration: none;
+      text-shadow: calc(var(--hover) * (var(--font-size) * -0)) calc(var(--hover) * (var(--font-size) * 0)) var(--shadow),
+        calc(var(--hover) * (var(--font-size) * -0.02)) calc(var(--hover) * (var(--font-size) * 0.02)) var(--shadow),
+        calc(var(--hover) * (var(--font-size) * -0.04)) calc(var(--hover) * (var(--font-size) * 0.04)) var(--shadow),
+        calc(var(--hover) * (var(--font-size) * -0.06)) calc(var(--hover) * (var(--font-size) * 0.06)) var(--shadow),
+        calc(var(--hover) * (var(--font-size) * -0.08)) calc(var(--hover) * (var(--font-size) * 0.08)) var(--shadow),
+        calc(var(--hover) * (var(--font-size) * -0.1)) calc(var(--hover) * (var(--font-size) * 0.1)) var(--shadow);
+      &:last-of-type {
+        position: absolute;
+        z-index: 2;
+        transform: translate(calc(var(--hover) * (var(--font-size) * 0.1)), calc(var(--hover) * (var(--font-size) * -0.1)));
+        transition: transform 0.2s, background-position 0s;
+        background: linear-gradient(108deg, transparent 0 55%, var(--glare) 55% 60%, transparent 60% 70%, var(--glare) 70% 85%, transparent 85%)
+            calc(var(--pos) * -200%) 0% / 200% 100%,
+          var(--color);
+        -webkit-background-clip: text;
+        color: transparent;
+        inset: 0;
+        text-shadow: none;
+      }
+    }
+    svg {
+      --delay-step: 0.15;
+      position: absolute;
+      z-index: 3;
+      top: calc(var(--y, 50) * 1%);
+      left: calc(var(--x, 0) * 1%);
+      transform: translate(-50%, -50%) scale(0);
+      width: calc(var(--font-size) * 0.5);
+      aspect-ratio: 1;
+      path {
+        fill: var(--glare);
+      }
+    }
+  }
+}

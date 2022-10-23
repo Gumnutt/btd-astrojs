@@ -1,0 +1,26 @@
+---
+import { getAssetURL } from "../utils/getAssetData"
+export interface Props {
+  title: string
+  short_content: string
+  slug: string
+  imageId: string
+}
+
+const { title, short_content, slug, imageId } = Astro.props
+---
+
+<li>
+  <a href={`/projects/${slug}`} class="project--card">
+    <div class="image--wrapper">
+      <img src={getAssetURL(imageId)} />
+    </div>
+    <div class="project--content">
+      <div class="project--text">
+        <h3>{title}</h3>
+        <p>{short_content}</p>
+      </div>
+      <!-- <ReadButton buttonText="View" /> -->
+    </div>
+  </a>
+</li>

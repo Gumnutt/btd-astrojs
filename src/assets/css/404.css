@@ -1,0 +1,55 @@
+.not-found--grid {
+  --grid-height: 60;
+  display: grid;
+  margin: auto;
+  height: 100%;
+  max-height: calc(var(--grid-height) * 1vh);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  aspect-ratio: 1/1;
+  &:hover {
+    span {
+      color: var(--gray-3);
+      scale: 0.6;
+      @media (--OSdark) {
+        color: var(--gray-8);
+      }
+    }
+    svg {
+      color: var(--blue-6);
+      @media (--OSdark) {
+        color: var(--yellow-5);
+      }
+    }
+  }
+  span {
+    display: grid;
+    font-size: calc(var(--grid-height) * 0.5vh);
+    font-family: "Space Mono", monospace;
+    line-height: 1;
+    transition: all 300ms;
+    place-items: center;
+    &:nth-child(1) {
+      transform-origin: bottom right;
+    }
+    &:nth-child(2) {
+      transform-origin: bottom left;
+    }
+    &:nth-child(3) {
+      transform-origin: top right;
+    }
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+.home-link {
+  color: var(--gray-8);
+  cursor: pointer;
+  text-decoration: none;
+  @media (--OSdark) {
+    color: var(--gray-1);
+  }
+}

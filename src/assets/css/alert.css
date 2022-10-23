@@ -1,0 +1,13 @@
+.alert {
+  border-radius: var(--radius-2);
+  margin-top: var(--rhythm);
+  padding: var(--rhythm);
+  h3 {
+    margin-top: 0;
+  }
+  &.info {
+    background-color: #c7d2fe;
+    background-image: var(--gradient-15);
+    color: var(--gray-8);
+  }
+}

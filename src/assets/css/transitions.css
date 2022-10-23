@@ -1,0 +1,79 @@
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 300ms ease, translate 500ms ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  translate: 0 1rem;
+}
+
+@keyframes ring {
+  from {
+    animation-timing-function: ease-in-out;
+    stroke-dashoffset: -122.52;
+    transform: rotate(135deg);
+  }
+  15% {
+    animation-timing-function: ease-in;
+    stroke-dashoffset: -122.52;
+    transform: rotate(90deg);
+  }
+  35% {
+    animation-timing-function: ease-out;
+    stroke-dashoffset: -65.34;
+    transform: rotate(297.5deg);
+  }
+  55% {
+    animation-timing-function: ease-in-out;
+    stroke-dashoffset: -122.52;
+    transform: rotate(505deg);
+  }
+  70% {
+    animation-timing-function: ease-in-out;
+    stroke-dashoffset: -122.52;
+    transform: rotate(490deg);
+  }
+  85%,
+  to {
+    stroke-dashoffset: -122.52;
+    transform: rotate(497.5deg);
+  }
+}
+@keyframes ball1 {
+  from {
+    transform: rotate(14deg);
+  }
+  20% {
+    transform: rotate(-7deg);
+  }
+  60% {
+    transform: rotate(399deg);
+  }
+  75% {
+    transform: rotate(361deg);
+  }
+  90%,
+  to {
+    transform: rotate(374deg);
+  }
+}
+@keyframes ball2 {
+  from {
+    transform: rotate(-21deg);
+  }
+  25% {
+    transform: rotate(-47deg);
+  }
+  60% {
+    transform: rotate(364deg);
+  }
+  75% {
+    transform: rotate(326deg);
+  }
+  90%,
+  to {
+    transform: rotate(339deg);
+  }
+}
