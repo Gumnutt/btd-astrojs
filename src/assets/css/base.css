@@ -32,7 +32,7 @@ html {
   }
 }
 .home--page {
-  overflow-y: hidden;
+  overflow: hidden;
 }
 
 .wrapper {

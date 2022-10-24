@@ -43,11 +43,8 @@ export interface Props {
     let winHeight = window.innerHeight
     let scrollPercent = (scrollTop / (docHeight - winHeight)) * 10
 
-    if (scrollPercent > 2) {
-      console.log(scrollPercent)
-      scaleElement.style.transform = `scale(${scrollPercent - 1})`
-    } else if (scrollPercent >= 8) {
-      scaleElement.style.transform = `scale(8)`
+    if (scrollPercent > 1) {
+      scaleElement.style.transform = `scale(${scrollPercent})`
     } else {
       scaleElement.style.transform = `scale(1)`
     }
