@@ -1,0 +1,68 @@
+---
+title: Brynn
+layout: ../layouts/ResumeLayout.astro
+---
+
+import Experience from "../components/ResumeExperience.astro"
+import Marquee from "../components/ResumeMarquee.astro"
+
+### Brynn Briedis
+
+# I am a software engineer
+
+<div class="gradient-text">
+My expertise is in creating maintainable, WCAG AA sites. I have been developing software for enterprise for over 5 years. My work includes custom modules and themes, content migrations as well as e-commerce integrations.
+
+I am a highly skilled JavaScript, CSS/SCSS front-end developer who takes pride in well-structured, maintainable theme development. I set high standards and creates reusable patterns which improve the quality of new and redeveloped interfaces.
+
+I also mentor students in front-end development, contributes to local software meetups and open-source projects, including the GovCMS 2.0.0-alpha release.
+
+</div>
+
+<Marquee images={["drupal", "vue", "react", "node", "wordpress"]} />
+
+## What I've been up to
+
+<div class="experience--wrapper">  
+<Experience
+  title="Australian Energy Regulator"
+  year="2022"
+  site="https://energyinnovationtoolkit.gov.au/"
+  skills={["Drupal 9", "VueJs", "PHP", "Agile delivery"]}
+  role="Technical lead"
+/>
+
+<Experience
+  title="Department of Employment, Skills and Education"
+  year="2022"
+  skills={["VueJs", ".NET", "Agile delivery", "API development"]}
+  role="Senior developer"
+/>
+
+<Experience
+  title="Australian Cyber Security Centre"
+  year="2021 - 2022"
+  site="https://www.cyber.gov.au/"
+  skills={["Drupal 9", "React", "PHP", "Agile delivery"]}
+  role="Technical lead"
+/>
+
+<Experience
+  title="Rare Cancers Australia"
+  year="2021"
+  site="https://pinnacle-patient.com/playbook"
+  skills={["Drupal 9", "VueJs", "PHP", "Multilingual", "Agile delivery"]}
+  role="Senior developer"
+/>
+
+<Experience
+  title="Covid19 In Your Language"
+  year="2021"
+  site="https://www.homeaffairs.gov.au/covid19inlanguage"
+  skills={["Drupal", "PHP", "Multilingual", "Agile delivery"]}
+  role="Technical lead"
+/>
+
+<Experience title="Covid19 - Home Affairs" year="2021" site="https://www.homeaffairs.gov.au/covid19/" skills={["Drupal", "PHP", "Agile delivery"]}
+role="Technical lead" />
+</div>

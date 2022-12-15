@@ -1,0 +1,20 @@
+---
+export interface Props {
+  title: string
+  year: string
+  site: string
+  skills: string[]
+  role: String
+}
+
+const { title, year, site, skills, role } = Astro.props
+---
+
+<article class="experience">
+  <span>{year}</span>
+  <h4>{title}</h4>
+  <span>{role}</span>
+  <ul class="skills">
+    {skills.map((skill) => <li class="skill">{skill}</li>)}
+  </ul>
+</article>

@@ -1,0 +1,28 @@
+---
+export interface Props {
+  images: string[]
+}
+
+const { images } = Astro.props
+---
+
+<div class="marquee">
+  <div class="marquee--group">
+    {
+      images.map((image) => (
+        <div class="marquee--item">
+          <img src={`/assets/images/${image}.svg`} />
+        </div>
+      ))
+    }
+  </div>
+  <div aria-hidden="true" class="marquee--group">
+    {
+      images.map((image) => (
+        <div class="marquee--item">
+          <img src={`/assets/images/${image}.svg`} />
+        </div>
+      ))
+    }
+  </div>
+</div>
