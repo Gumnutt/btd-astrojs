@@ -4,6 +4,7 @@ import Hero from "../components/Hero.astro"
 import PostPreview from "../components/PostPreview.astro"
 import { getDirectusClient } from "../utils/getDirectusClient"
 const directus = await getDirectusClient()
+console.log("hello Krang")
 const homepageData = await directus.items("home_page").readByQuery({
   fields: ["*"],
 })
