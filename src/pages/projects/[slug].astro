@@ -3,25 +3,11 @@ import { marked } from "marked"
 import { getAssetURL } from "../../utils/getAssetData"
 
 import MainLayout from "../../layouts/MainLayout.astro"
-import { getDirectusClient } from "../../utils/getDirectusClient"
 
-export async function getStaticPaths() {
-  const directus = await getDirectusClient()
-  const response = await directus.items("projects").readByQuery({
-    fields: ["*"],
-  })
-
-  return response.data.map(({ title, description, slug, technologies, link, short_description, image }) => {
-    return {
-      params: { slug },
-      props: { title, description, technologies, link, short_description, image },
-    }
-  })
-}
 const { title, description, technologies, link, short_description, image } = Astro.props
 ---
 
-<MainLayout title="Project" classes="project">
+<MainLayout title="Projects" classes="project">
   <main class="project--content">
     <div class="project--image-container">
       <img src={getAssetURL(image)} alt="" class="project--image" />

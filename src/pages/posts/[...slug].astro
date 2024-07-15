@@ -1,0 +1,47 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+
+import moment from "moment"
+import {marked} from "marked"
+
+import MainLayout from "../../layouts/MainLayout.astro"
+
+export async function getStaticPaths() {
+  const blogPosts = await getCollection('posts');
+  return blogPosts.map((post) => ({
+    params: { 
+      title: post.title, 
+      slug: post.slug, 
+      published: moment(post.published).format("MMMM Do, YYYY"),
+      // timeToRead: Math.ceil(marked(post.body).trim().split(/\s+/).length / 200),
+    },
+    props: post,
+  }));
+}
+
+const post = Astro.props as CollectionEntry<'posts'>
+
+---
+
+<MainLayout title={post.data.title}>
+  <main class="wrapper">
+    <article class="post">
+      <div class="post--header">
+        <div class="post--header-inner">
+          <div class="header--data">
+            <time>{post.data.published}</time>
+            <span>~</span>
+            <span>{Math.ceil(post.body.trim().split(/\s+/).length / 200)} min read</span>
+          </div>
+          <h1>{post.data.title}</h1>
+        </div>
+      </div>
+      <Fragment set:html={marked.parse(post.body)} />
+    </article>
+  </main>
+  <script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script is:inline>
+    Prism.highlightAll()
+  </script>
+</MainLayout>

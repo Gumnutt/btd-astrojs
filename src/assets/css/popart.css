@@ -8,16 +8,18 @@
       scale: calc(1 - var(--scale));
     }
     .hero--detail {
-      background-image: repeating-linear-gradient(-45deg, white, white 10px, black 10px, black 20px);
       scale: calc(1 + var(--scale));
+      background-image: repeating-linear-gradient(-45deg, white, white 10px, black 10px, black 20px);
     }
     .hero--text {
       padding-top: calc(var(--size-7) - 0.4rem);
     }
   }
   header {
-    margin-left: calc(50% - 50vw);
+    position: relative;
     margin-right: calc(50% - 50vw);
+    margin-left: calc(50% - 50vw);
+    border-bottom: 3px solid var(--gray-9);
     background: linear-gradient(
       135deg,
       transparent,
@@ -28,8 +30,6 @@
       white calc(25% + 70px),
       var(--yellow-5) calc(25% + 3px)
     );
-    border-bottom: 3px solid var(--gray-9);
-    position: relative;
     /*&:before {
       content: "";
       background-image: radial-gradient(black 30%, transparent 10%), radial-gradient(black 30%, transparent 30%);
@@ -42,12 +42,12 @@
       z-index: -1;
     }*/
     nav {
-      padding-left: var(--size-4);
       padding-right: var(--size-4);
+      padding-left: var(--size-4);
       .hero--intro {
-        background: white;
         width: fit-content;
         padding: 0.4rem;
+        background: white;
         color: var(--gray-9);
       }
       a {
@@ -59,24 +59,24 @@
     color: var(--blue-6);
   }
   .posts--list {
-    background: white;
     position: relative;
     z-index: 1;
+    background: white;
     li {
       background: var(--yellow-4);
     }
   }
   .posts--grid {
     &:before {
+      background-color: white;
       background-image: radial-gradient(black 30%, transparent 10%), radial-gradient(black 30%, transparent 30%);
       background-position: 0 0, 5px 5px;
       background-size: 10px 10px;
-      background-color: white;
     }
     .post--card,
     .project--card {
-      background: white;
       border: 3px solid black;
+      background: white;
       color: var(--gray-9);
     }
   }

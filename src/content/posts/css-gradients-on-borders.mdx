@@ -1,0 +1,98 @@
+---
+title: "CSS gradients on borders"
+slug: "css-gradients-on-borders"
+published: "2023-08-14"
+---
+
+To apply a gradient to a border, the most straightforward approach is to use the border-image property (similarly to how it's done with background gradients):
+
+```css
+.card--gradient-1 {
+  border-width: 4px;
+  border-style: solid;
+  border-image: linear-gradient(to right, darkblue, darkorchid) 1;
+}
+```
+
+The '1' after the linear-gradient declaration is the border-image-slice value. By using 1, we specify we want a single border region.
+
+The issue with this approach is that you can't combine border-image with border-radius, which is common requirement most designs.
+
+```css
+.card--gradient-1 {
+  /* .. */
+  border-image: linear-gradient(to right, #802dcd, #f7943e) 1;
+  border-radius: 50em; /* 👈 not working */
+}
+```
+
+## A better approach
+
+There's a better solution, based on the `background-clip` property, that is compatible with the border-radius property.
+
+```css
+.card--gradient-2 {
+  background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, linear-gradient(to right, #802dcd, #f7943e) border-box;
+  border-radius: 2rem;
+  border: 4px solid transparent;
+}
+```
+
+The `padding-box` and `border-box` values specified after the linear gradients represent the `background-clip` values.
+
+The first linear gradient is limited to the padding box (i.e. all the content of the element, except the borders). It's a 'fake' gradient because we're using the same color twice; we're using it to mask the second background gradient with the background color.
+
+The second gradient sits below the first one and is used to apply the desired gradient colors. Unlike the first one, the second gradient covers the border area (background-clip: border-box).
+
+Finally, the transparent border is required to separate the border-box from the padding box (otherwise they would be identical and the first gradient would completely cover the second one).
+
+## A step further
+
+<div class="alert info">
+<h3> It feels good to make things shiny ✨</h3>
+But all that shines is not gold, browser support is a bit sketchy from here
+
+</div>
+
+The animation of gradients is something that has been near impossible until the addition of CSS Houdini to our frontend toolkit. Along with many awesome features, Houdini provides us the `@property` CSS At-Rule which gives you a registered custom property, as if you had called `CSS.registerProperty` in Javascript. You can read more about the `@property` from the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/@property">docs</a> or from <a href="/post/next-level-css-variables-with-at-property">this post</a>.
+
+We can define the angle of our gradient with a custom property.
+
+```css
+@property --angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 180deg;
+}
+```
+
+The angle can then be applied to our gradient declaration and then update on hover by updating the `--angle` property value, pair this with a transition and you have an animated gradient.
+
+```css
+.card--gradient-2 {
+  --angle: 180deg; /* 👈 browser coverage */
+  background: linear-gradient(var(--color-bg), var(--color-bg)) padding-box, linear-gradient(var(--angle), #802dcd, #f7943e) border-box;
+  border-radius: 2rem;
+  border: 4px solid transparent;
+  transition: --angle 500ms;
+}
+/* rotate the border on hover */
+.card--gradient-2:hover {
+  --angle: 0deg;
+}
+```
+
+<iframe
+  height="450"
+  style="width: 100%;"
+  scrolling="no"
+  title="CSS animated gradient"
+  src="https://codepen.io/Gumnut/embed/mdpedaP?default-tab=css%2Cresult"
+  frameborder="no"
+  loading="lazy"
+  allowtransparency="true"
+  allowfullscreen="true"
+>
+  See the Pen <a href="https://codepen.io/Gumnut/pen/mdpedaP">CSS animated gradient</a> by Gumnut (<a href="https://codepen.io/Gumnut">@Gumnut</a>) on{" "}
+  <a href="https://codepen.io">CodePen</a>.
+</iframe>

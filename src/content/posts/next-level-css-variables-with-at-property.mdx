@@ -1,0 +1,73 @@
+---
+title: "Next level CSS variables with @property"
+slug: "next-level-css-variables-with-at-property"
+published: "2023-09-24"
+---
+
+<a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Houdini">CSS Houdini</a> is a set of low-level APIs that expose parts of the CSS rendering
+engine, and give developers access to the CSS Object Model.
+
+This is a massive step for the CSS as a whole. It enables developers to extend CSS by hooking into the styling and layout process of a browser, telling it how to read and parse custom CSS without the need for browsers to have built in support for features.
+
+The Properties and Values API gives your CSS custom properties superpowers by giving them semantic meaning and even fallback values, enabling CSS testing.
+
+## One small step
+
+Below is an example of setting a custom property but with all the juicy stuff that will take our property to the next level. You can do this one of two ways, with javascript or with CSS.
+
+```css
+CSS.registerProperty({
+  name: '--colorPrimary',
+  syntax: '<color>',
+  initialValue: '#fab005',
+  inherits: false
+});
+```
+
+```css
+@property --colorPrimary {
+  syntax: "<color>";
+  initial-value: #fab005;
+  inherits: false;
+}
+```
+
+We can now use `--colorPrimary` just like any other custom property. The difference is now CSS knows what data type `--colorPrimary` is and is no longer treated like a string.
+
+## Syntax
+
+With the syntax property, you can now write semantic CSS by specifying a type. The current types are:
+
+- length
+- number
+- percentage
+- length-percentage
+- color
+- image
+- url
+- integer
+- angle
+- time
+- resolution
+- transform-list
+- transform-function
+- custom-ident (a custom identifier string)
+
+Setting a syntax enables the browser to type-check custom properties. This has many benefits.
+
+An example of this would be a CSS animated gradient. Without the use of the `@property` a smooth animation between gradient values is impossible because CSS would parse the gradients values at a string. Below is a live example of an animated gradient, the example showcases the `angle` syntax.
+
+<iframe
+  height="450"
+  style="width: 100%;"
+  scrolling="no"
+  title="CSS animated gradient"
+  src="https://codepen.io/Gumnut/embed/mdpedaP?default-tab=css%2Cresult"
+  frameborder="no"
+  loading="lazy"
+  allowtransparency="true"
+  allowfullscreen="true"
+>
+  See the Pen <a href="https://codepen.io/Gumnut/pen/mdpedaP">CSS animated gradient</a> by Gumnut (<a href="https://codepen.io/Gumnut">@Gumnut</a>) on{" "}
+  <a href="https://codepen.io">CodePen</a>.
+</iframe>

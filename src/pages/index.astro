@@ -2,30 +2,23 @@
 import MainLayout from "../layouts/MainLayout.astro"
 import Hero from "../components/Hero.astro"
 import PostPreview from "../components/PostPreview.astro"
-import { getDirectusClient } from "../utils/getDirectusClient"
-const directus = await getDirectusClient()
-const homepageData = await directus.items("home_page").readByQuery({
-  fields: ["*"],
-})
-const postsData = await directus.items("posts").readByQuery({
-  fields: ["*"],
-  meta: "total_count",
-})
+
+
 
 export interface Props {
   posts: any
   homeData: any
 }
 
-const { posts = postsData.data, homeData = homepageData.data } = Astro.props
+// const { posts = postsData.data, homeData = homepageData.data } = Astro.props
 ---
 
 <MainLayout title="Brynn the dev" bodyClasses="home--page" classes="home">
-  <Hero title={homeData.title} description={homeData.description} images={homeData.images} />
+  <Hero title="I'm a front-end engineer & CSS lover" description="I do my best to ensure the use of modern best practices on the web. My claim to fame is that I can spin up the fans on an Apple M1 Pro chip machine with CSS." images={} />
   <section class="posts--list">
     <div class="wrapper"></div>
     <ul>
-      {posts.map((post) => <PostPreview title={post.title} short_content={post.short_content} slug={post.slug} />)}
+      <!-- {posts.map((post) => <PostPreview title={post.title} short_content={post.short_content} slug={post.slug} />)} -->
     </ul>
   </section>
 </MainLayout>
