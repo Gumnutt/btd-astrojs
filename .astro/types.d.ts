@@ -151,6 +151,15 @@ declare module 'astro:content' {
   data: any
 } & { render(): Render[".mdx"] };
 };
+"projects": {
+"pttrnplayground.mdx": {
+	id: "pttrnplayground.mdx";
+  slug: "pttrnplayground";
+  body: string;
+  collection: "projects";
+  data: any
+} & { render(): Render[".mdx"] };
+};
 
 	};
 
