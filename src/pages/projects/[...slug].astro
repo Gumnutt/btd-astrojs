@@ -1,25 +1,36 @@
 ---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+
 import { marked } from "marked"
-import { getAssetURL } from "../../utils/getAssetData"
 
 import MainLayout from "../../layouts/MainLayout.astro"
 
-const { title, description, technologies, link, short_description, image } = Astro.props
+export async function getStaticPaths() {
+  const projectEntries = await getCollection('projects');
+  return projectEntries.map(project => ({
+    params: { slug: project.slug }, props: { project },
+  }));
+}
+
+const { project } = Astro.props;
 ---
+
+
 
 <MainLayout title="Projects" classes="project">
   <main class="project--content">
     <div class="project--image-container">
-      <img src={getAssetURL(image)} alt="" class="project--image" />
+      <Image src={project.data.image} alt={project.data.title} width="1500" class="project--image" />
     </div>
 
     <div class="project--text-container">
       <div class="project--tech">
-        {technologies.map((tech) => <span class="tech--item">{tech}</span>)}
+        {project.data.tags.map((tag) => <span class="tech--item">{tag}</span>)}
       </div>
-      <h1>{title}</h1>
-      <Fragment set:html={marked.parse(description)} />
-      <a href={link} class="project--button">
+      <h1>{project.data.title}</h1>
+      <Fragment set:html={marked.parse(project.body)} />
+      <a href={project.data.link} class="project--button">
         <p>View project</p>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>

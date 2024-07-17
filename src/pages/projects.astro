@@ -1,6 +1,10 @@
 ---
+import { getCollection } from 'astro:content'
+
 import MainLayout from "../layouts/MainLayout.astro"
 import ProjectCard from "../components/ProjectCard.astro"
+
+const projects = (await getCollection('projects')).sort((a, z) => +new Date(z.data.date) - +new Date(a.data.date))
 
 ---
 
@@ -11,11 +15,11 @@ import ProjectCard from "../components/ProjectCard.astro"
       <p>Every now and then I like to show off my work. Here's a few of my favourite projects.</p>
     </div>
     <ul class="posts--grid">
-      <!-- {
+      {
         projects.map((project) => (
-          <ProjectCard title={project.title} short_content={project.short_description} slug={project.slug} imageId={project.image} />
+          <ProjectCard title={project.data.title} short_content={project.data.description} slug={project.slug} imageId={''} />
         ))
-      } -->
+      }
     </ul>
   </main>
 </MainLayout>

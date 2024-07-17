@@ -141,14 +141,14 @@ declare module 'astro:content' {
   slug: "css-gradients-on-borders";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 "next-level-css-variables-with-at-property.mdx": {
 	id: "next-level-css-variables-with-at-property.mdx";
   slug: "next-level-css-variables-with-at-property";
   body: string;
   collection: "posts";
-  data: any
+  data: InferEntrySchema<"posts">
 } & { render(): Render[".mdx"] };
 };
 "projects": {
@@ -157,7 +157,7 @@ declare module 'astro:content' {
   slug: "pttrnplayground";
   body: string;
   collection: "projects";
-  data: any
+  data: InferEntrySchema<"projects">
 } & { render(): Render[".mdx"] };
 };
 
@@ -169,5 +169,5 @@ declare module 'astro:content' {
 
 	type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
-	export type ContentConfig = never;
+	export type ContentConfig = typeof import("../src/content/config.js");
 }

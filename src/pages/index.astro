@@ -1,16 +1,13 @@
 ---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
 import MainLayout from "../layouts/MainLayout.astro"
 import Hero from "../components/Hero.astro"
 import PostPreview from "../components/PostPreview.astro"
 
 
+const posts = await getCollection('posts');
 
-export interface Props {
-  posts: any
-  homeData: any
-}
-
-// const { posts = postsData.data, homeData = homepageData.data } = Astro.props
 ---
 
 <MainLayout title="Brynn the dev" bodyClasses="home--page" classes="home">
@@ -18,7 +15,7 @@ export interface Props {
   <section class="posts--list">
     <div class="wrapper"></div>
     <ul>
-      <!-- {posts.map((post) => <PostPreview title={post.title} short_content={post.short_content} slug={post.slug} />)} -->
+      {posts.map((post) => <PostPreview title={post.data.title} short_content={post.data.description} slug={post.slug} />)}
     </ul>
   </section>
 </MainLayout>

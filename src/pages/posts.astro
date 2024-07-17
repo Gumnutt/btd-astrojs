@@ -4,7 +4,7 @@ import { getCollection } from 'astro:content'
 import MainLayout from "../layouts/MainLayout.astro"
 import PostCard from "../components/PostCard.astro"
 
-const posts = (await getCollection('posts')).sort((a, z) => +new Date(z.data.date) - +new Date(a.data.date))
+const posts = (await getCollection('posts'))
 
 ---
 
@@ -18,7 +18,7 @@ const posts = (await getCollection('posts')).sort((a, z) => +new Date(z.data.dat
       </p>
     </div>
     <ul class="posts--grid">
-      {posts.map((post) => <PostCard title={post.data.title} short_content={post.data.short_content} slug={post.data.slug} />)}
+      {posts.map((post) => <PostCard title={post.data.title} short_content={post.data.description} slug={post.slug} />)}
     </ul>
   </main>
 </MainLayout>
