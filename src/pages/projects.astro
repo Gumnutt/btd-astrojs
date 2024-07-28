@@ -1,14 +1,11 @@
 ---
+import { getCollection } from 'astro:content'
+
 import MainLayout from "../layouts/MainLayout.astro"
 import ProjectCard from "../components/ProjectCard.astro"
 
-import { getDirectusClient } from "../utils/getDirectusClient"
-const directus = await getDirectusClient()
-const projectsData = await directus.items("projects").readByQuery({
-  fields: ["*"],
-  meta: "total_count",
-})
-const projects = projectsData.data
+const projects = (await getCollection('projects')).sort((a, z) => +new Date(z.data.date) - +new Date(a.data.date))
+
 ---
 
 <MainLayout title="Brynn the dev | Posts">
@@ -20,7 +17,7 @@ const projects = projectsData.data
     <ul class="posts--grid">
       {
         projects.map((project) => (
-          <ProjectCard title={project.title} short_content={project.short_description} slug={project.slug} imageId={project.image} />
+          <ProjectCard title={project.data.title} short_content={project.data.description} slug={project.slug} imageId={''} />
         ))
       }
     </ul>

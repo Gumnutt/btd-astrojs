@@ -1,14 +1,11 @@
 ---
+import { getCollection } from 'astro:content'
+
 import MainLayout from "../layouts/MainLayout.astro"
 import PostCard from "../components/PostCard.astro"
 
-import { getDirectusClient } from "../utils/getDirectusClient"
-const directus = await getDirectusClient()
-const postsData = await directus.items("posts").readByQuery({
-  fields: ["*"],
-  meta: "total_count",
-})
-const posts = postsData.data
+const posts = (await getCollection('posts'))
+
 ---
 
 <MainLayout title="Brynn the dev | Posts">
@@ -21,7 +18,7 @@ const posts = postsData.data
       </p>
     </div>
     <ul class="posts--grid">
-      {posts.map((post) => <PostCard title={post.title} short_content={post.short_content} slug={post.slug} />)}
+      {posts.map((post) => <PostCard title={post.data.title} short_content={post.data.description} slug={post.slug} />)}
     </ul>
   </main>
 </MainLayout>

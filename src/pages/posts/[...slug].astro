@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+
+import {marked} from "marked"
+
+import PostLayout from "../../layouts/PostLayout.astro"
+
+export async function getStaticPaths() {
+  const postEntries = await getCollection('posts');
+  console.log(postEntries)
+  return postEntries.map(post => ({
+    params: { slug: post.slug }, props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<PostLayout title={post.data.title} post={post}>
+  <Fragment set:html={marked.parse(post.body)} />
+  <script is:inline src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script is:inline>
+    Prism.highlightAll()
+  </script>
+</PostLayout>

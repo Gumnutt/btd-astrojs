@@ -1,35 +1,15 @@
 ---
-import { getDirectusClient } from "../utils/getDirectusClient"
-import { getAssetURL, getAssetData } from "../utils/getAssetData"
-
-const directus = await getDirectusClient()
-const imageData = await directus.items("home_page_files").readByQuery({
-  fields: ["*"],
-  meta: "total_count",
-})
-const { imageIds, hasDetail } = Astro.props
-
-export interface Props {
-  imageIds: string[]
+import { Image } from "astro:assets"
+interface Props {
+  image: ImageMetadata
   hasDetail: boolean
 }
+
+const { image, hasDetail } = Astro.props
 ---
 
 <picture>
-  {
-    imageData.data.map(async (image) => {
-      const imgdata = getAssetData(image.directus_files_id)
-      const url = getAssetURL(image.directus_files_id)
-      const response = await fetch(imgdata)
-        .then((response) => response.json())
-        .then((r) => r.data)
-      const type = response.type.split("/")[1]
-      if (!["jpg", "jpeg"].includes(type)) {
-        return <source srcset={url} type={response.type} />
-      }
-      return <img src={url} />
-    })
-  }
+  <Image src={image} alt="hero image" class="hero" width="650" height="650" />
   {hasDetail && <div class="hero--detail" />}
 </picture>
 
