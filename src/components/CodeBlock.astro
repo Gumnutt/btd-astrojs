@@ -1,0 +1,60 @@
+---
+export interface Props {
+  language?: string;
+}
+const uuid = crypto.randomUUID()
+
+const { language } = Astro.props;
+const props = Astro.props;
+---
+
+<div class="code-block" data-code-block-id={uuid}>
+  <div class="code-block--header">
+    {language && (
+      <span class="code-block--language">
+        {language}
+      </span>
+    )}
+    <button>Copy to clipboard</button>
+  </div>
+  <div class="code-block--code">
+    <pre {...props}>
+      <slot />
+    </pre>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const codeBlocks = document.querySelectorAll('.code-block');
+    codeBlocks.forEach((block) => {
+      const id = block.dataset.codeBlockId;
+      const button = block.querySelector('button');
+      const code = block.querySelector('code');
+
+      // Detect language dynamically
+      if (!block.querySelector('.code-block--language')) {
+        const classList = code?.classList || [];
+        const languageClass = Array.from(classList).find((className) =>
+          className.startsWith('language-')
+        );
+        const language = languageClass?.split('-')[1];
+        if (language) {
+          const languageSpan = document.createElement('span');
+          languageSpan.className = 'code-block--language';
+          languageSpan.textContent = language;
+          block.querySelector('.code-block--header').prepend(languageSpan);
+        }
+      }
+
+      // Copy-to-clipboard functionality
+      button.addEventListener('click', () => {
+        navigator.clipboard.writeText(code.innerText);
+        button.innerText = 'Copied!';
+        setTimeout(() => {
+          button.innerText = 'Copy to clipboard';
+        }, 2000);
+      });
+    });
+  });
+</script>

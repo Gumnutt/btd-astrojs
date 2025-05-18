@@ -1,26 +1,29 @@
 ---
-import { getAssetURL } from "../utils/getAssetData"
+import { Image } from 'astro:assets';
+import Pill from './Pill.astro';
 export interface Props {
   title: string
-  short_content: string
   slug: string
-  imageId: string
+  image?: string
+  description?: string
+  tags?: string[]
 }
 
-const { title, short_content, slug, imageId } = Astro.props
+const colors = [
+  "purple",
+]
+const randomColor = colors[Math.floor(Math.random() * colors.length)]
+
+const { title, slug, image, description, tags } = Astro.props
 ---
 
-<li>
-  <a href={`/projects/${slug}`} class="project--card">
-    <div class="image--wrapper">
-      <img src={getAssetURL(imageId)} />
-    </div>
-    <div class="project--content">
-      <div class="project--text">
-        <h3>{title}</h3>
-        <p>{short_content}</p>
-      </div>
-      <!-- <ReadButton buttonText="View" /> -->
-    </div>
-  </a>
-</li>
+<a href={slug} class="project--card" data-bg-color={randomColor}>
+  <div class="project--tags">
+    {tags && tags.map((tag) => (
+      <Pill>{tag}</Pill>
+    ))}
+  </div>
+  <h3>{title}</h3>
+  {description &&<p>{description}</p>}
+</a>
+

@@ -3,7 +3,12 @@ title: "Next level CSS variables with @property"
 slug: "next-level-css-variables-with-at-property"
 published: "2023-09-24"
 description: "A short explainer of the `@property` CSS At-Rule."
+tags: ["CSS"]
+author: "Gumnut"
 ---
+
+import Previewer from "../../components/Previewer.astro"
+import CodeBlock from "../../components/CodeBlock.astro"
 
 <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Houdini">CSS Houdini</a> is a set of low-level APIs that expose parts of the CSS rendering
 engine, and give developers access to the CSS Object Model.
@@ -35,6 +40,8 @@ CSS.registerProperty({
 
 We can now use `--colorPrimary` just like any other custom property. The difference is now CSS knows what data type `--colorPrimary` is and is no longer treated like a string.
 
+<Previewer site_url="https://docs.astro.build/en/guides/content-collections/" title="A title for the frame" client:load />
+
 ## Syntax
 
 With the syntax property, you can now write semantic CSS by specifying a type. The current types are:
@@ -60,7 +67,6 @@ An example of this would be a CSS animated gradient. Without the use of the `@pr
 
 <iframe
   height="450"
-  style="width: 100%;"
   scrolling="no"
   title="CSS animated gradient"
   src="https://codepen.io/Gumnut/embed/mdpedaP?default-tab=css%2Cresult"

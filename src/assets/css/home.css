@@ -1,7 +1,8 @@
 .home {
+  overflow: hidden;
   @media (--md-n-above) {
     position: relative;
-    top: calc(var(--size-10) * -1);
+    top: calc((var(--size-7) * 2 + 1lh) * -1);
     width: 100%;
   }
 }

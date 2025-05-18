@@ -1,0 +1,18 @@
+---
+interface Props {
+  href?: string;
+  label?: string;
+
+}
+const { href, label } = Astro.props
+const props = Astro.props
+---
+
+<a class="button" href={href} {...props}>
+  {label}
+  <div class="icon">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.9844 6V15.9844H6V14.0156H12.6094L0.984375 2.39062L2.39062 0.984375L14.0156 12.6094V6H15.9844Z" fill="#0B0B0B"/>
+    </svg>
+  </div>
+</a>

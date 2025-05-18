@@ -3,19 +3,88 @@ import { getCollection, type CollectionEntry } from 'astro:content';
 
 import MainLayout from "../layouts/MainLayout.astro"
 import Hero from "../components/Hero.astro"
-import PostPreview from "../components/PostPreview.astro"
+import TextMarquee from '../components/TextMarquee.astro';
+import BlockHeading from '../components/BlockHeading.astro';
+import Heading from '../components/Heading.astro';
+import PostCard from "../components/PostCard.astro"
+import ProjectCard from '../components/ProjectCard.astro';
+import Table from '../components/Table.astro';
+import Carousel from '../components/Carousel.astro';
+import Button from '../components/Button.astro';
 
 
 const posts = await getCollection('posts');
+const projects = (await getCollection('projects')).sort((a, z) => +new Date(z.data.date) - +new Date(a.data.date))
+
+const jobs =[
+    {
+      company: 'Clean Energy Regulator',
+      role: 'Technical lead',
+      description: 'I lead a team of developers to build and maintain the Clean Energy Regulator\'s web applications. I am responsible for the technical direction of the team, ensuring that we are using modern best practices and technologies.',
+    },
+    {
+      company: 'Australian Energy Regulator',
+      role: 'Technical lead',
+      description: "I lead a small team to build out the AER's Energy Innovation Toolkit site. This involved decoupling Drupal webforms and VUE.js components to create a more modern site. I also worked with the AER's design team to ensure that the site was accessible and met the AER's branding guidelines.",
+    },
+    {
+      company: 'Department of Employment, Skills and Education',
+      role: 'Senior developer',
+      description: "Work as part of a team that delivers multiple projects including an LMS and a tender platform."
+    }
+  ]
 
 ---
 
 <MainLayout title="Brynn the dev" bodyClasses="home--page" classes="home">
   <Hero title="I'm a front-end engineer & CSS lover" description="I do my best to ensure the use of modern best practices on the web. My claim to fame is that I can spin up the fans on an Apple M1 Pro chip machine with CSS." images={} />
-  <section class="posts--list">
-    <div class="wrapper"></div>
-    <ul>
-      {posts.map((post) => <PostPreview title={post.data.title} short_content={post.data.description} slug={post.slug} />)}
-    </ul>
+  <TextMarquee items={['lets talk', 'me@brynnthe.dev']}></TextMarquee>
+  <section class="projects">
+    <div class="wrapper">
+      <BlockHeading title="Look mum, i did a thing" level={2} backgroundColor="yellow" size="lg" />
+      <p class="home--subtext">Every now and then I like to show off my work. Here's a few of my favourite projects.</p>
+      {projects.length > 5 &&
+      <Carousel>
+        {projects.map(((project, index) => <li style={`--i: ${index + 1}`}><ProjectCard title={project.data.title} slug={project.data.slug} image={project.data.image}/></li>))}
+      </Carousel>
+      }
+      {projects.length <= 5 &&
+        <ul class="projects--grid">
+          {projects.map((project, index) => 
+            <li style={`--i: ${index + 1}`}>
+              <ProjectCard
+                title={project.data.title}
+                slug={project.data.link}
+                description={project.data.description}
+                tags={project.data.tags}
+              />
+            </li>
+          )}
+        </ul>
+      }
+    </div>
+  </section>
+
+  <section class="posts">
+    <div class="wrapper">
+      <div class="section-title" data-alignment="center">
+        <BlockHeading title="Read a thing?" level={3} backgroundColor="black" size='sm'/>
+        <p class="home--subtext">If there's one thing I love even more than you, it's sharing the ins and outs of web development. Let's see if I can show you something new!</p>
+      </div>
+      <ul class="posts--grid">
+        {posts.map((post) => <li><PostCard title={post.data.title} short_content={post.data.description} slug={post.data.slug} author={post.data.author} date={post.data.published} tags={post.data.tags} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrapper">
+      <div class="section-title" data-alignment="bottom">
+        <Heading level={2} color="pink" size='lg'>Ya gotta pay the bills somehow.</Heading>
+        <p>Here are some projects that are out in the wild for real life people with real life problems. </p>
+      </div>
+      <Table items={jobs}/>
+      <Button href="/resume" label="See more work" style="justify-self: end;"></Button>
+    </div>
   </section>
 </MainLayout>

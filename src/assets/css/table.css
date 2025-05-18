@@ -1,0 +1,26 @@
+.modern-table {
+  display: flex;
+  tbody {
+    width: 100%;
+    tr {
+      display: grid;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--white);
+      padding-block: var(--size-9);
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      @media (--lg-n-above) {
+        gap: 10rem;
+        grid-template-columns: 320px auto auto;
+      }
+      td {
+        font-size: var(--font-size-3);
+        text-wrap: wrap;
+        &:first-of-type {
+          font-size: var(--font-size-6);
+        }
+      }
+    }
+  }
+}

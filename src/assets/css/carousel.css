@@ -1,0 +1,184 @@
+@property --floor {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: true; /* or true depending on context */
+}
+/* if offscreen become inert */
+@keyframes offscreen-inert {
+  entry 0%,
+  entry 19%,
+  exit 100% {
+    opacity: 0.25;
+    interactivity: inert;
+  }
+  entry 20%,
+  exit 99% {
+    opacity: 1;
+    interactivity: auto;
+  }
+}
+
+/* removes the hidden content when in view */
+@keyframes offscreen-searchability {
+  entry 0%,
+  entry 19%,
+  exit 100% {
+    content-visibility: hidden;
+  }
+  entry 20%,
+  exit 99% {
+    content-visibility: visible;
+  }
+}
+
+/* SCROLLER */
+/* horizontal scroll snap */
+.carousel {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
+
+  /* snap to center */
+  & li {
+    scroll-snap-align: center;
+  }
+
+  /* offscreen inert if not being searched */
+  /* see JS */
+  &:not([is-searching]) {
+    > li {
+      animation: offscreen-inert linear both;
+      animation-timeline: view(x);
+    }
+
+    [hidden="until-found"] {
+      animation: offscreen-searchability linear both;
+      animation-timeline: view(x);
+    }
+  }
+
+  &[is-searching] [hidden="until-found"] {
+    content-visibility: visible;
+  }
+}
+
+/* SCROLL BUTTONS */
+/* create buttons by selecting them and adding content */
+.carousel {
+  &::scroll-button(*) {
+    /* space from content */
+    margin: 5px;
+    border: 2px solid #999;
+    border-radius: 1e3px;
+    /* make them round and easy to press */
+    inline-size: 48px;
+    aspect-ratio: 1;
+  }
+
+  &::scroll-button(*):focus-visible {
+    outline-offset: 5px;
+  }
+
+  &::scroll-button(*):not(:disabled):is(:hover, :active) {
+    background-color: Canvas;
+  }
+
+  &::scroll-button(*):not(:disabled):active {
+    scale: 90%;
+  }
+
+  &::scroll-button(left) {
+    content: "⬅" / "Scroll Left";
+    grid-column: left;
+  }
+
+  &::scroll-button(right) {
+    content: "⮕" / "Scroll Right";
+    grid-column: right;
+  }
+}
+
+/* SCROLL MARKERS */
+/* create marker group */
+/* create markers for each item */
+.carousel {
+  scroll-marker-group: after;
+
+  &::scroll-marker-group {
+    display: grid;
+    overflow: auto;
+    padding: 15px;
+    grid-area: markers;
+    place-content: safe end;
+    grid: 6px / auto-flow 48px;
+    scroll-padding: 15px;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+
+    @media (prefers-reduced-motion: no-preference) {
+      scroll-behavior: smooth;
+    }
+  }
+
+  & > .content > li {
+    &::scroll-marker {
+      content: " "; /* empty content is fine, just like ::before */
+      background-color: var(--white);
+      -webkit-tap-highlight-color: transparent;
+      scroll-snap-align: center;
+    }
+
+    &::scroll-marker:is(:hover, :focus-visible) {
+    }
+
+    &::scroll-marker:target-current {
+      background-color: var(--yellow);
+    }
+  }
+}
+
+.scroll-layout {
+  display: grid;
+  grid-template-areas:
+    "scroll scroll scroll scroll scroll"
+    ". left right markers .";
+  grid-template-columns: var(--_container-margin) auto auto 1fr var(--_container-margin);
+  grid-column: full-bleed;
+  .carousel {
+    grid-area: scroll;
+  }
+}
+
+.carousel {
+  padding-block: 1rem;
+  max-inline-size: 100cqi;
+  overscroll-behavior-x: contain;
+  scroll-behavior: smooth;
+  li {
+    --x0: calc(var(--i) * 1.334 + var(--i) * var(--i) * 0.5325 + 0.235);
+    --floor: calc(var(--x0) - 0.5);
+    --x: calc(var(--x0) - var(--floor));
+    --base-angle: 20deg;
+    --rotation: calc(var(--x) * var(--base-angle));
+    rotate: var(--rotation);
+    &:nth-child(even) {
+      --rotation: calc(var(--x) * var(--base-angle) * -1);
+    }
+  }
+}
+
+.content {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  grid: 1fr / auto-flow 1fr;
+  gap: -1rem;
+  > li {
+    list-style-type: none;
+  }
+}

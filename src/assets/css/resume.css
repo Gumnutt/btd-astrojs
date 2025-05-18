@@ -2,10 +2,10 @@
   --font-size: var(--font-size-3);
   --rhythm: calc(var(--font-size) * var(--font-lineheight-4));
   display: grid;
+  margin-bottom: var(--size-7);
   font-size: var(--font-size);
   line-height: var(--font-lineheight-4);
   grid-template-columns: minmax(0, 1fr) minmax(0, calc(var(--rhythm) * 1)) minmax(0, 54ch) minmax(0, calc(var(--rhythm) * 1)) minmax(0, 1fr);
-  margin-bottom: var(--size-7);
   *,
   * > * {
     grid-column: 1/-1;
@@ -19,28 +19,28 @@
       background-image: linear-gradient(-225deg, #ffe29f 0%, #ffa99f 48%, #ff719a 100%);
     }
     p {
-      mix-blend-mode: lighten;
-      color: black;
-      background: white;
       margin: 0;
-      padding-top: var(--rhythm);
       margin-top: -1px;
-      margin-left: -1px;
       margin-right: -1px;
+      margin-left: -1px;
+      padding-top: var(--rhythm);
+      background: white;
+      color: black;
+      mix-blend-mode: lighten;
+      @media (--OSdark) {
+        background: var(--grey);
+        color: white;
+        mix-blend-mode: darken;
+      }
       &:last-of-type {
         margin-bottom: -1px;
-      }
-      @media (--OSdark) {
-        mix-blend-mode: darken;
-        color: white;
-        background: var(--gray-9);
       }
     }
   }
   .experience--wrapper {
-    grid-column: 2/5;
-    margin-top: var(--rhythm);
     display: grid;
+    margin-top: var(--rhythm);
+    grid-column: 2/5;
     grid-template-columns: repeat(1, 1fr);
     gap: var(--size-2);
     @media (--md-n-above) {
@@ -49,18 +49,18 @@
   }
   .experience {
     --offset: var(--size-5);
-    width: 100%;
-    grid-column: auto;
-    background: var(--gray-1);
-    padding: var(--size-4);
     border-radius: var(--radius-3);
+    width: 100%;
+    padding: var(--size-4);
+    background: var(--gray-1);
+    grid-column: auto;
+    @media (--OSdark) {
+      background: var(--gray-10);
+    }
     &:nth-child(even) {
       @media (--md-n-above) {
         transform: translateY(var(--offset));
       }
-    }
-    @media (--OSdark) {
-      background: var(--gray-10);
     }
     p,
     li {
@@ -69,16 +69,16 @@
     .skills {
       display: flex;
       flex-wrap: wrap;
-      gap: var(--size-2);
-      list-style: none;
-      padding: 0;
       margin: 0;
       margin-top: var(--size-4);
+      padding: 0;
+      gap: var(--size-2);
+      list-style: none;
       .skill {
         border: 1px solid var(--gray-8);
         border-radius: var(--radius-round);
-        padding-left: var(--size-2);
         padding-right: var(--size-2);
+        padding-left: var(--size-2);
         @media (--OSdark) {
           border: 1px solid var(--gray-1);
         }
@@ -86,8 +86,8 @@
     }
   }
   span {
-    color: var(--gray-7);
     font-size: var(--font-size-1);
+    color: var(--gray-7);
   }
   h4 {
     margin-top: 0;

@@ -4,23 +4,16 @@ export interface Props {
   description: string
 }
 
-import Picture from "./Picture.astro"
-
-import image from "../images/Square Image.png"
+import BlockHeading from "./BlockHeading.astro"
 
 const { title, description } = Astro.props
 ---
 
-<div class="wrapper">
-  <section class="hero">
-    <div class="hero--text">
-      <div></div>
-      <div>
-        <h2 class="hero--title">{title}</h2>
-        <p class="hero--subtext">{description}</p>
-      </div>
-      <p class="hero--text-small">Scroll. Go on.</p>
+<section class="hero">
+  <div class="wrapper">
+    <div class="hero--layout">
+      <BlockHeading title={title} level={1} backgroundColor="purple" size="lg" />
+      <p class="hero--subtext">{description}</p>
     </div>
-    <Picture image={image} hasDetail={true} />
-  </section>
-</div>
+  </div>
+</section>

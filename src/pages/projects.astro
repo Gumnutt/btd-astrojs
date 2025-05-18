@@ -14,12 +14,17 @@ const projects = (await getCollection('projects')).sort((a, z) => +new Date(z.da
       <h1>Look mum, I did a thing</h1>
       <p>Every now and then I like to show off my work. Here's a few of my favourite projects.</p>
     </div>
-    <ul class="posts--grid">
-      {
-        projects.map((project) => (
-          <ProjectCard title={project.data.title} short_content={project.data.description} slug={project.slug} imageId={''} />
-        ))
-      }
+    <ul class="projects--grid">
+      {projects.map((project, index) => 
+        <li style={`--i: ${index + 1}`}>
+          <ProjectCard
+            title={project.data.title}
+            slug={project.data.slug}
+            description={project.data.description}
+            tags={project.data.tags}
+          />
+        </li>
+      )}
     </ul>
   </main>
 </MainLayout>

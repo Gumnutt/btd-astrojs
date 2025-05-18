@@ -3,14 +3,30 @@ export interface Props {
   title: string
   short_content: string
   slug: string
+  author?: string
+  date?: Date
+  tags?: string[]
 }
 
-const { title, short_content, slug } = Astro.props
+import Chip from './Chip.astro'
+
+const { title, short_content, slug, author, date, tags } = Astro.props
+
+const formattedDate = date
+  ? new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'short', year: 'numeric'}).format(date)
+  : null;
 ---
 
-<li>
-  <a href={`/posts/${slug}`} class="post--card">
-    <h3>{title}</h3>
-    <p>{short_content}</p>
-  </a>
-</li>
+
+<a href={`/posts/${slug}`} class="post--card" transition:name=`${slug}-hero`>
+  <h3>{title}</h3>
+  <p>{short_content}</p>
+  <footer>
+      <p>By {author}</p>
+      {formattedDate && <time>{formattedDate}</time>}
+    {tags && tags.map((tag) => (
+      <Chip>{tag}</Chip>
+    ))}
+  </footer>
+</a>
+

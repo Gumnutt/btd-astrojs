@@ -1,0 +1,18 @@
+---
+export interface Props {
+  level: number;
+  color?: "purple" | "pink" | "blue" | "yellow" | "white" | "black";
+  size?: "sm" | "md" | "lg";
+}
+
+const { level, color, size } = Astro.props;
+
+if (level < 1 || level > 6) {
+  throw new Error("Level must be between 1 and 6");
+}
+---
+
+{(() => {
+  const Tag = `h${level}`;
+  return <Tag class="block-heading" data-color={color} data-size={size}><slot/></Tag>;
+})()}

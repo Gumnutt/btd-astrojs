@@ -1,0 +1,26 @@
+---
+export interface Props {
+  items: string[];
+  displayHeader?: boolean;
+}
+const { items, displayHeader } = Astro.props;
+---
+<table class="modern-table">
+  {displayHeader && (
+    <thead>
+      <tr>
+        {Object.keys(items[0]).map((key) => (
+          <th>{key}</th>
+        ))}
+      </tr>
+    </thead>
+  )}
+  <tbody>
+    {items.map((item) => (
+      <tr>
+        {Object.values(item).map((value) => (
+          <td>{value}</td>
+        ))}
+      </tr>
+    ))}
+  </tbody>

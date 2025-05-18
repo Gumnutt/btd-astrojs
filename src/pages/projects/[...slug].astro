@@ -9,7 +9,7 @@ import MainLayout from "../../layouts/MainLayout.astro"
 export async function getStaticPaths() {
   const projectEntries = await getCollection('projects');
   return projectEntries.map(project => ({
-    params: { slug: project.slug }, props: { project },
+    params: { slug: project.data.slug }, props: { project },
   }));
 }
 
@@ -21,7 +21,7 @@ const { project } = Astro.props;
 <MainLayout title="Projects" classes="project">
   <main class="project--content">
     <div class="project--image-container">
-      <Image src={project.data.image} alt={project.data.title} width="1500" class="project--image" />
+      {project.data.image &&<Image src={project.data.image} alt={project.data.title} width="1500" class="project--image" />}
     </div>
 
     <div class="project--text-container">

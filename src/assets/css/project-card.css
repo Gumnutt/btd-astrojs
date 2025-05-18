@@ -1,40 +1,66 @@
+@property --floor {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: true; /* or true depending on context */
+}
+
 .project--card {
-  background-color: white;
-  width: 100%;
-  height: 100%;
+  --_pjc-width: 350px;
+  --_pjc-height: 400px;
+  --_pjc-padding-block: var(--size-4);
+  --_pjc-padding-inline: var(--size-4);
+  --_pjc-radius: 24px;
+  --_pjc-color: var(--black);
+  --_pjc-background: var(--white);
+  --_pjc-border-width: 4px;
+  --_pjc-border-color: var(--white);
+  --x0: calc(var(--i) * 1.334 + var(--i) * var(--i) * 0.5325 + 0.235);
+  --floor: calc(var(--x0) - 0.5);
+  --x: calc(var(--x0) - var(--floor));
+  --base-angle: 20deg;
+  --rotation: calc(var(--x) * var(--base-angle));
+
+  position: relative;
   display: flex;
+  justify-content: end;
   flex-direction: column;
+  overflow: hidden;
+  transition: rotate 200ms var(--ease-elastic-in-out-2);
+  border: var(--_pjc-border-width) solid var(--_pjc-border-color);
+  border-radius: var(--_pjc-radius);
+  outline: calc(var(--_pjc-border-width) * 2) solid var(--_pjc-background);
+  height: 100%;
+  padding-block: var(--_pjc-padding-block);
+  padding-inline: var(--_pjc-padding-inline);
+  background: var(--_pjc-background);
   text-decoration: none;
-  padding: var(--size-5);
-  border-radius: var(--radius-3);
-  color: unset;
-  column-gap: 4rem;
-  @media (--OSdark) {
-    background-color: var(--gray-9);
+  color: var(--_pjc-color);
+  @media (--md-n-above) {
+    aspect-ratio: 4/5;
+  }
+  &[data-bg-color="blue"] {
+    --_pjc-background: var(--blue);
+  }
+  &[data-bg-color="purple"] {
+    --_pjc-background: var(--purple);
+    --_pjc-color: var(--white);
+  }
+  &[data-bg-color="pink"] {
+    --_pjc-background: var(--pink);
+    --_pjc-color: var(--white);
+  }
+  &[data-bg-color="yellow"] {
+    --_pjc-background: var(--yellow);
   }
   &:hover {
-    .read--button {
-      p {
-        color: var(--gray-9);
-        transform: translateY(-100%);
-      }
-    }
+    rotate: var(--rotation);
   }
-  .image--wrapper {
-    aspect-ratio: 16/9;
-    border-radius: calc(var(--size-5) - var(--radius-3));
-    overflow: hidden;
-  }
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
-  .project--content {
+  .project--tags {
     display: flex;
-    align-items: center;
-    gap: 4rem;
-    .project--text {
-      flex: 1;
+    padding-block-start: 10vb;
+    gap: 1vb;
+    @media (--md-n-above) {
+      padding-block-start: 0;
     }
   }
 }
