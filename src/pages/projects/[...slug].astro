@@ -1,8 +1,6 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
-
-import { marked } from "marked"
 
 import MainLayout from "../../layouts/MainLayout.astro"
 
@@ -14,6 +12,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const { Content } = await render(project);
 ---
 
 
@@ -29,7 +28,7 @@ const { project } = Astro.props;
         {project.data.tags.map((tag) => <span class="tech--item">{tag}</span>)}
       </div>
       <h1>{project.data.title}</h1>
-      <Fragment set:html={marked.parse(project.body)} />
+      <Content/>
       <a href={project.data.link} class="project--button">
         <p>View project</p>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
