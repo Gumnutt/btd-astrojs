@@ -63,6 +63,14 @@
       padding-block-start: 0.5rem;
     }
   }
+  &[data-size="md"] {
+    --_font-size: 58px;
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: -1.92px;
+    line-height: 0.97;
+    text-wrap: pretty;
+  }
   &[data-size="lg"] {
     --_font-size: 68px;
     font-weight: 600;

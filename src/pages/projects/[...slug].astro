@@ -2,7 +2,10 @@
 import { getCollection, render } from 'astro:content';
 import { Image } from 'astro:assets';
 
-import MainLayout from "../../layouts/MainLayout.astro"
+import MainLayout from "../../layouts/ProjectLayout.astro"
+import ProjectHeader from '../../components/ProjectHeader.astro';
+
+import CodeBlock from "../../components/CodeBlock.astro"
 
 export async function getStaticPaths() {
   const projectEntries = await getCollection('projects');
@@ -17,24 +20,7 @@ const { Content } = await render(project);
 
 
 
-<MainLayout title="Projects" classes="project">
-  <main class="project--content">
-    <div class="project--image-container">
-      {project.data.image &&<Image src={project.data.image} alt={project.data.title} width="1500" class="project--image" />}
-    </div>
-
-    <div class="project--text-container">
-      <div class="project--tech">
-        {project.data.tags.map((tag) => <span class="tech--item">{tag}</span>)}
-      </div>
-      <h1>{project.data.title}</h1>
-      <Content/>
-      <a href={project.data.link} class="project--button">
-        <p>View project</p>
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
-        </svg>
-      </a>
-    </div>
-  </main>
+<MainLayout title="Projects">
+  <ProjectHeader title={project.data.title} description={project.data.description} tags={project.data.tags} />
+  <Content components={{pre: CodeBlock}} />
 </MainLayout>

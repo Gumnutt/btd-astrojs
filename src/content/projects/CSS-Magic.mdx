@@ -1,7 +1,117 @@
 ---
 title: "CSS Magic: Making Web Design Fun Again!"
 slug: css-magic
-link: https://www.youtube.com/watch?v=_5OBJ8xCEUA&ab_channel=DrupalSouth
+link: https://www.youtube.com/embed/_5OBJ8xCEUA?si=zLGzIqxjL1CgItvb
 description: "A design driven talk about CSS"
 tags: ["Talk", "CSS"]
 ---
+
+import Video from "../../components/VideoFloater.astro"
+import Button from "../../components/Button.astro"
+
+> CSS isn't just for setting fonts and colors anymore it's evolved into a powerful toolkit that lets you build interactive, delightful, and even magical web experiences, without drowning in JavaScript. Let's dive into some of the coolest recent features that make CSS genuinely exciting again!
+
+<Video site_url={frontmatter.link} title={frontmatter.title} />
+
+## Trigonometry in CSS: No Math Fear Required
+
+Remember those high school trig classes you thought you'd never use? Surprise they've landed in your CSS! Functions like `sin()` and `cos()` let you generate smooth, predictable animations without arbitrary pixel values.
+
+> "We don't have to have magic numbers anymore. We can use trigonometry to give us predictable numbers every time."
+
+From smoothly bouncing balls to spiraling diamond patterns, trig functions provide clean, elegant solutions without extra JS overhead.
+
+## Native CSS Nesting: Cleaner, Leaner Stylesheets
+
+CSS now supports native nesting, similar to Sass or SCSS. This makes stylesheets more readable and maintainable, letting you structure your CSS logically without the need for a preprocessor.
+
+Here's how clean it can look:
+
+```css
+.card {
+  & img {
+    width: 100%;
+  }
+
+  @media (min-width: 700px) {
+    & {
+      padding: 2rem;
+    }
+  }
+}
+```
+
+> "We can now write our CSS to be a lot leaner, much more readable, and easier to maintain."
+
+One thing to watch out for the ampersand (`&`) behaves slightly differently in native CSS compared to preprocessors, offering new powerful ways to reference parent selectors.
+
+## The Power of `:has()`: Finally, Parent Selectors!
+
+The `:has()` selector introduces parent-level selection in CSS, enabling powerful and dynamic styling based on child elements:
+
+```css
+.card:has(img) {
+  padding: 1rem;
+}
+```
+
+It's not just a neat trick it's transformative, letting your styles react dynamically to content without additional scripting.
+
+## Container Queries: Responsive Components Made Easy
+
+Gone are the days when responsive design meant only using media queries on the viewport. Container queries let your CSS respond to the size of individual elements:
+
+```css
+.container {
+  container-type: inline-size;
+}
+
+@container (min-width: 700px) {
+  .card-title {
+    font-size: 2rem;
+  }
+}
+```
+
+> "We can now build components in more of a vacuum than before it's not based on the window anymore."
+
+With container queries, building truly responsive components is simpler and more intuitive.
+
+## View Transitions: Easy, Elegant Animations
+
+The View Transitions API enables seamless transitions between states or pages, without the heavy lifting typically done with JavaScript frameworks. By taking snapshots of states and transitioning smoothly, this feature lets you add rich animations easily:
+
+> "Each slide of this presentation is essentially a new page, and view transitions manage all animations seamlessly."
+
+Perfect for card expansions, page navigations, and dynamic UI updates.
+
+## Scroll-Driven Animations: Bring Your Scroll to Life
+
+Scroll-driven animations sync animations directly to user scrolling, creating dynamic visual effects effortlessly:
+
+```css
+@keyframes scrollAnimation {
+  to {
+    transform: translateY(-100px);
+  }
+}
+
+.element {
+  animation: scrollAnimation auto linear;
+  animation-timeline: scroll();
+}
+```
+
+## Bonus: Conic Gradients & Style Queries
+
+CSS continues to expand with conic gradients perfect for vibrant borders and backgrounds and upcoming style queries, an exciting extension of container queries allowing styles to react dynamically to CSS property changes within an element itself.
+
+> "Style queries aren't fully supported yet, but when they are, they'll bring huge accessibility wins and dynamic styling capabilities."
+
+## Wrapping Up & Getting Started
+
+CSS is evolving faster than ever, empowering designers and developers to create more dynamic, engaging, and maintainable websites. It's a fantastic time to experiment with these features, pushing the boundaries of what's possible with CSS alone.
+
+Ready to try something new? Dive into these features and start crafting some CSS magic of your own!
+
+<Button href="https://fluffy-swan-a100e6.netlify.app/" label="View the slide deck" />

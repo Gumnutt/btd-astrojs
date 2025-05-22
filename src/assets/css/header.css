@@ -2,7 +2,6 @@ header {
   position: relative;
   z-index: 1;
   border-bottom: 2px solid var(--white);
-  text-align: center;
   color: var(--gray-9);
   nav {
     z-index: 10;

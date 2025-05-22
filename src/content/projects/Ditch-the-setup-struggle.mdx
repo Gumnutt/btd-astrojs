@@ -1,9 +1,73 @@
 ---
 title: "Ditch the setup struggle!"
 slug: ditch-the-setup-struggle
-link: https://www.youtube.com/watch?v=j-J1EFLN-UU&ab_channel=DrupalSouth
+link: https://www.youtube.com/embed/j-J1EFLN-UU?si=N_ea7xfuCEvHl_BO
 description: "How Lando can makes local development a breeze"
 tags: ["Talk", "Lando"]
 ---
 
-Info about the project
+import Video from "../../components/VideoFloater.astro"
+
+<Video site_url={frontmatter.link} title={frontmatter.title} />
+
+Local development setups often a source of frustration, documentation diving, and endless troubleshooting. But what if there were an easier way? Enter Lando, a development tool built around Docker, designed to simplify your local development environments and get you coding faster. In this post, I’ll introduce you to Lando, explain how it can streamline your workflow, and share some insights to help you avoid the common setup struggles.
+
+## What Exactly is Lando?
+
+At its core, Lando is essentially a wrapper around Docker, but much friendlier. It provides an easy-to-use interface for managing containers and services without the complexity usually associated with Docker setups.
+
+> "As a frontend dev, I hate complicated setups and documentation. I just want things to work. That's why Lando is perfect for me."
+
+All you need to get started with Lando is a simple YAML file. Write your configuration once, run `lando start`, and your entire local environment spins up effortlessly.
+
+## Recipes: Your New Best Friend
+
+One of Lando's standout features is its use of "recipes" pre-defined setups for popular frameworks like Drupal, Laravel, and WordPress. Recipes significantly reduce initial configuration effort:
+
+```yaml
+name: my-drupal-site
+recipe: drupal9
+config:
+  php: "8.1"
+```
+
+This snippet alone can fully provision a Drupal 9 environment, complete with PHP 8.1 and the necessary services pre-configured.
+
+> "I initially thought it was too good to be true, but it worked the first time and it felt great."
+
+## Docker Compose vs. Lando
+
+You might wonder, "Isn't that just Docker Compose?" Not exactly. While Docker Compose focuses on individual container management, Lando excels at orchestrating complete, multi-service setups seamlessly. Docker Compose and Lando can coexist Lagoon users frequently pair both tools but generally, Lando alone covers most local development needs.
+
+## Customizing Your Environment
+
+Lando recipes are flexible. Need Elasticsearch or a custom PHP version? Just tweak the YAML file accordingly. You can even define specific build steps:
+
+```yaml
+services:
+  appserver:
+    build:
+      - composer install
+```
+
+This customizability ensures your local environment closely mirrors production, minimizing surprises when deploying.
+
+## Sharing and Collaboration Made Easy
+
+With Lando, collaboration is straightforward. Simply include the Lando configuration file in your repo, and any team member can clone the repository, run `lando start`, and have an identical setup ready to go.
+
+> "Everyone should be able to just run `git clone` and `lando start` it makes onboarding new developers incredibly easy."
+
+## Performance and Troubleshooting
+
+Performance-wise, Lando is robust enough to run multiple projects simultaneously, even on less powerful hardware. Troubleshooting is also straightforward: logs and clear status messages simplify identifying and resolving issues.
+
+## Looking Ahead: Lando 4.0
+
+The upcoming Lando 4.0 promises even more modularity and extensibility, making contributions easier and further decoupling from Docker specifics.
+
+## Final Thoughts: Stop Struggling, Start Coding
+
+Lando dramatically simplifies local development setups, making the "works on my machine" problem a thing of the past. If you're tired of wrestling with complicated Docker setups or cryptic documentation, give Lando a spin you might just find it life-changing.
+
+Ready to simplify your workflow? Head over to [Lando's official site](https://docs.lando.dev/) and start spinning up environments painlessly today!

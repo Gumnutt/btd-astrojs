@@ -1,0 +1,20 @@
+---
+export interface Props {
+  title: string
+  tags?: string[]
+}
+
+import BlockHeading from './BlockHeading.astro'
+import Pill from './Pill.astro'
+
+const { title, tags } = Astro.props
+---
+
+<header>
+  <BlockHeading title={title} level={1} backgroundColor="yellow" size="md" />
+  <!-- <div class="tags">
+    {tags && tags.map((tag) => (
+      <Pill>{tag}</Pill>
+    ))}
+  </div> -->
+</header>

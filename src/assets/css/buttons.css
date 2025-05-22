@@ -21,6 +21,7 @@ button {
   letter-spacing: -0.48px;
   color: var(--grey);
   gap: 16px;
+  margin-block: var(--rhythm);
   &:hover {
     .icon {
       rotate: -90deg;

@@ -1,0 +1,16 @@
+---
+export interface Props {
+  site_url: string
+  title: string
+}
+const { site_url, title } = Astro.props
+---
+{site_url && 
+  <div class="video-backdrop">
+    <div class="sentinel"></div>
+  </div>
+  <div class="video-container">
+    <iframe src={site_url} title={title} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+  </div>
+
+}

@@ -44,6 +44,10 @@ p {
   line-height: var(--font-lineheight-4);
 }
 
+strong {
+  font-weight: bold;
+}
+
 a {
   color: var(--blue-6);
   @media (--OSdark) {
@@ -51,7 +55,18 @@ a {
   }
 }
 
-ul {
+ul,
+ol {
   margin-top: var(--rhythm);
   margin-left: var(--rhythm);
+}
+
+blockquote {
+  margin-block: var(--rhythm);
+  p {
+    --font-size: var(--font-size-4);
+    &:first-of-type {
+      margin-block-start: 0;
+    }
+  }
 }

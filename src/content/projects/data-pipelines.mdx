@@ -1,9 +1,173 @@
 ---
-title: "Transforming Drupal data workflows"
+title: "Transforming Drupal Data Workflows"
 slug: transforming-drupal-data-workflows
-link: https://www.youtube.com/watch?v=LrC1LUJ6ww0&ab_channel=DrupalSouth
-description: "An in-depth look at Data Pipelines & Search API"
-tags: ["Talk", "Drupal"]
+link: https://www.youtube.com/embed/LrC1LUJ6ww0?si=BvGWkEwF384GDqxA
+description: "An in-depth look at the Data Pipelines module and Search API in Drupal"
+tags:
+  - Talk
+  - Drupal
 ---
 
-Info about the project
+import { Image } from "astro:assets"
+import diagram from "../../assets/images/diagram.svg"
+import Video from "../../components/VideoFloater.astro"
+
+> _I’m a front-ender by trade, but when a client dumped month-after-month of ever-shifting CSV files in my lap, I had to dive deep into Drupal’s backend or risk hours of manual data wrangling._
+
+<Video site_url={frontmatter.link} title={frontmatter.title} />
+
+In this post, you’ll learn how we combined the [Data Pipelines](https://www.drupal.org/project/data_pipelines) module, Search API + Solr, and a sprinkle of Vue.js to transform chaotic spreadsheets into interactive dashboards—with full revision history and zero manual editing headaches.
+
+## The CSV Chaos
+
+At first, the requirement sounded simple:
+
+**_“Our data comes in CSV files, and we can’t change that.”_**
+
+Reality quickly set in:
+
+1. **Unpredictable headers:** Column names shift from “Region” → “Business Area” → “Zone” without notice.
+2. **Data quality issues:** Blank cells, “N/A” strings and rogue commas are common.
+3. **Audit & rollback needs:** Every import must be versioned and undo-able.
+4. **Custom data models:** Graphs, tables and media references must link to specific records.
+
+Neither rigid migrations nor vanilla front-end parsing could handle this. That’s where a hybrid approach shines.
+
+## Why Feeds, Migrations & Front-End Parsing Fell Short
+
+1. **JavaScript parsing in the browser:** Great for tiny files but a 10 MB CSV crashes the UI.
+2. **Drupal Feeds / Migrate API:** Perfect for stable schemas. Yet each header change forces you to rewrite mappings.
+3. **Hybrid “best-of-both-worlds”:** Let Drupal handle ingestion, validation and versioning, then layer in a modern JS framework for a snappy UX.
+
+## A “Best-of-Both-Worlds” Architecture
+
+### Data Pipelines (CSV → JSON Blob)
+
+We defined a custom pipeline in YAML to:
+
+- **Validate** that required keys exist, enforce lengths, and flag invalid values.
+- **Transform** data (e.g. `Y` → `true`, `N` → `false`).
+- **Concatenate** fields (e.g. `FirstName + ' ' + LastName`).
+
+```yaml
+id: monthly_sales
+label: "Monthly Sales Import"
+transforms:
+  - plugin: filter_keys
+    keys:
+      - region
+      - sales_total
+  - plugin: length_check
+    field: sales_total
+    min_length: 1
+  - plugin: map_values
+    field: active
+    mapping:
+      Y: true
+      N: false
+  - plugin: concat
+    fields:
+      - first_name
+      - last_name
+    target: full_name
+destination:
+  plugin: json
+  settings:
+    directory: "public://data_pipelines/json"
+```
+
+### Custom Drupal Entities
+
+Each dataset becomes a Data Set entity, offering:
+
+- Revision history: Roll back to any prior import.
+- Preview & approval: Editors inspect JSON blobs before indexing.
+- Media integration: Manage CSV files via the Media Library with a custom source plugin.
+
+### Search API + Solr Indexing
+
+A JSON processor plugin maps dynamic JSON keys to Solr fields:
+
+```php
+/**
+ * @SearchApiProcessor(
+ *   id = "json_field_mapper",
+ *   label = @Translation("JSON Field Mapper"),
+ *   stages = {"add_properties" = 0}
+ * )
+ */
+class JsonFieldMapperProcessor extends ProcessorPluginBase {
+  public function addFieldValues(IndexInterface $index, DataInterface $data) {
+    $json = Json::decode($data->getSource()->getValue('json_blob'));
+    foreach ($this->configuration['field_mapping'] as $source_key => $field_name) {
+      if (isset($json[$source_key])) {
+        $this->addField($data, $field_name, $json[$source_key]);
+      }
+    }
+  }
+}
+```
+
+Editors simply map CSV columns to Search API fields in the UI no extra code needed.
+
+### Vue.js “View Components” for Frontend
+
+We wrapped Drupal Views in Vue single-file components so editors can:
+
+- Drag & drop View blocks in Layout Builder.
+- Fetch indexed data with familiar Vue patterns.
+
+```html
+<template>
+  <div>
+    <h2>{{ title }}</h2>
+    <ul>
+      <li v-for="item in rows" :key="item.id">{{ item.full_name }} — {{ item.sales_total }}</li>
+    </ul>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: ["title"],
+    data() {
+      return { rows: [] }
+    },
+    mounted() {
+      fetch("/views-data/monthly_sales/latest.json")
+        .then((res) => res.json())
+        .then((data) => (this.rows = data))
+    },
+  }
+</script>
+```
+
+## Recap: From CSV Upload to Interactive Dashboard
+
+1. Upload & version: Add a new CSV via Media Library.
+2. Process pipeline: Go to Content » Data Sets, click “Process” and watch the batch run.
+3. Review: Inspect the JSON blob in the Data Set revision page.
+4. Index to Solr: Trigger a reindex and fields appear in Search API.
+5. Build Views: Create a View using your newly indexed fields.
+6. Embed Vue: Add the Vue-powered View Component block via Layout Builder.
+
+Result: Editors upload messy CSVs, Drupal validates, versions and indexes, end users enjoy sleek and interactive reports.
+
+## Lessons Learned & Best Practices
+
+- Read the docs on Destinations: Know where your JSON ends up.
+- Keep an intermediate entity: Direct CSV → Solr skips validation and rollbacks.
+- Prefer flexible pipelines when source schemas might shift.
+- Empower non-Drupal teams with Vue wrappers instead of raw Views UI.
+
+## Conclusion & Next Steps
+
+By combining Data Pipelines, Search API + Solr and Vue.js, we crafted a resilient, versioned data platform all without changing the client’s CSV habits.
+
+### Modules & Resources
+
+- [Drupal Data Pipelines](https://www.drupal.org/project/data_pipelines)
+- JsonFieldMapper on GitHub
+- Search API
+
+Have you wrestled with messy CSVs in Drupal? Give this approach a try and share your experience on Twitter or in the Drupal Slack. Happy coding!

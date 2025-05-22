@@ -16,5 +16,6 @@
   font-size: small;
   font-family: var(--font-mono);
   letter-spacing: -0.32px;
+  color: currentColor;
   gap: 10px;
 }

@@ -42,26 +42,21 @@ const jobs =[
   <section class="projects">
     <div class="wrapper">
       <BlockHeading title="Look mum, i did a thing" level={2} backgroundColor="yellow" size="lg" />
-      <p class="home--subtext">Every now and then I like to show off my work. Here's a few of my favourite projects.</p>
-      {projects.length > 5 &&
-      <Carousel>
-        {projects.map(((project, index) => <li style={`--i: ${index + 1}`}><ProjectCard title={project.data.title} slug={project.data.slug} image={project.data.image}/></li>))}
-      </Carousel>
-      }
-      {projects.length <= 5 &&
+      <p class="home--subtext">I love sharing what I’ve been up to, whether it’s a project I’ve built or more me just yappin'. Here are a few of my favourites.”</p>
+
         <ul class="projects--grid">
           {projects.map((project, index) => 
             <li style={`--i: ${index + 1}`}>
               <ProjectCard
                 title={project.data.title}
-                slug={project.data.link}
+                slug={`projects/${project.data.slug}`}
                 description={project.data.description}
                 tags={project.data.tags}
               />
             </li>
           )}
         </ul>
-      }
+      
     </div>
   </section>
 
