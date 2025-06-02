@@ -1,3 +1,12 @@
+---
+export interface Props {
+  collapsable?: boolean;
+}
+---
 <aside class="sidebar">
+  <header class="sidebar--header">
+    <slot name="header" />
+    <button></button>
+  </header>
   <slot />
 </aside>

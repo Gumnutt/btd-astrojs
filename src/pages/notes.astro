@@ -1,0 +1,41 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+import MainLayout from "../layouts/MainLayout.astro"
+import BlockHeading from '../components/BlockHeading.astro';
+import Heading from '../components/Heading.astro';
+import NoteCard from '../components/NoteCard.astro';
+
+
+import NotesGrid from '../components/NotesGrid.astro';
+
+const notes = await getCollection('notes');
+---
+
+<MainLayout title="Brynn the dev">
+  <main class="posts">
+    <div class="wrapper">
+  <NotesGrid>
+    <BlockHeading title="Field journal" level={1} size='lg' backgroundColor="yellow"  />
+    {notes.map((note) => 
+      <div class="grid--item">
+        <NoteCard 
+          data-title-length={
+            note.data.title
+              ? note.data.title.length > 40
+          ? 'extra-long'
+          : note.data.title.length > 20
+              ? 'long'
+              : 'short'
+              : 'short'
+          }
+          style={`--border-style: var(--radius-drawn-${Math.floor(Math.random() * 6) + 1});`}
+        >
+          {note.data.title && <Heading level={3}>{note.data.title}</Heading>}
+        </NoteCard>
+      </div>
+    )}
+  </NotesGrid>
+  </div>
+  </main>
+</MainLayout>

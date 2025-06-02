@@ -21,12 +21,16 @@
       border-left: 1px solid var(--black);
       padding: 0px 16px;
       background-color: transparent;
+      color: var(--black);
       gap: 10px;
     }
   }
   &--code {
     padding-block: calc(var(--_cb-padding) / 2);
     padding-inline: var(--_cb-padding);
+    pre {
+      display: flex;
+    }
   }
 }
 code[class*="language-"],
@@ -45,6 +49,9 @@ pre[class*="language-"] {
   text-shadow: none;
   span {
     font-family: inherit;
+  }
+  .comment {
+    color: color-mix(in srgb, var(--grey) 50%, var(--offwhite));
   }
 }
 pre[class*="language-"] {

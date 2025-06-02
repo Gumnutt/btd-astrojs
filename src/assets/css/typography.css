@@ -49,10 +49,7 @@ strong {
 }
 
 a {
-  color: var(--blue-6);
-  @media (--OSdark) {
-    color: var(--yellow-5);
-  }
+  color: light-dark(var(--purple), var(--yellow));
 }
 
 ul,
@@ -62,9 +59,21 @@ ol {
 }
 
 blockquote {
+  --font-size: var(--font-size-6);
+  padding: var(--size-6);
+  background-color: light-dark(var(--grey), var(--offwhite));
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: light-dark(var(--offwhite), var(--grey));
   margin-block: var(--rhythm);
+  grid-column: feature !important;
+  font-variation-settings: "wght" 800;
+  &.compatibility-alert {
+  }
   p {
-    --font-size: var(--font-size-4);
+    --font-size: inherit;
+    line-height: inherit;
     &:first-of-type {
       margin-block-start: 0;
     }

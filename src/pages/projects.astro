@@ -20,7 +20,7 @@ const projects = (await getCollection('projects')).sort((a, z) => +new Date(z.da
             <li style={`--i: ${index + 1}`}>
               <ProjectCard
                 title={project.data.title}
-                slug={`projects/${project.data.slug}`}
+                slug={project.data.slug}
                 description={project.data.description}
                 tags={project.data.tags}
               />

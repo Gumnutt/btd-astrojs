@@ -1,0 +1,30 @@
+<ul class="demo">
+  <li>Apple</li>
+  <li>Banana</li>
+  <li>Orange</li>
+  <li>Mango</li>
+  <li>Pineapple</li>
+  <li>Strawberry</li>
+  <li>Blueberry</li>
+  <li>Grape</li>
+  <li>Watermelon</li>
+  <li>Peach</li>
+</ul>
+
+<style is:inline>
+.demo {
+  cursor: pointer;
+  li{
+    cursor: pointer;
+  }
+  @media (hover) and (prefers-reduced-motion: no-preference) {
+    & > li {
+      transition: opacity 0.3s ease;
+    }
+
+    &:has(:hover) > li:not(:hover) {
+      opacity: 0.25;
+    }
+  }
+}
+</style>

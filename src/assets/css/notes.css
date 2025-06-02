@@ -1,0 +1,54 @@
+.notes--grid {
+  --_gap: var(--size-5);
+  --line-offset: calc(var(--_gap) / 2);
+  --line-thickness: 1px;
+  --line-color: var(--offwhite);
+  --line-type: dashed;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--_gap);
+  grid-auto-flow: dense;
+  .block-heading {
+    padding-block-end: var(--line-offset);
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  .grid--item {
+    position: relative;
+    &:before,
+    &:after {
+      position: absolute;
+      z-index: 1;
+    }
+    &:before {
+      border-left: var(--line-thickness) var(--line-type) var(--line-color);
+      block-size: calc(100% + var(--_gap));
+      inset-block-start: calc(var(--_gap) / 2 * -1);
+      inset-inline-start: calc(var(--line-offset) * -1);
+    }
+    &:after {
+      border-top: var(--line-thickness) var(--line-type) var(--line-color);
+      inline-size: calc(100% + var(--_gap));
+      inset-inline-start: calc(var(--_gap) / 2 * -1);
+      inset-block-start: calc(var(--line-offset) * -1);
+    }
+    &:has(> [data-title-length="extra-long"]) {
+      grid-row: span 2;
+    }
+  }
+}
+a:has(.note--card) {
+  text-decoration: none;
+}
+.note--card {
+  border-radius: 8px;
+  height: 100%;
+  padding: var(--size-3);
+  background-color: var(--yellow);
+
+  color: var(--black);
+  place-content: center;
+  .block-heading {
+    padding-block-end: 0;
+  }
+}

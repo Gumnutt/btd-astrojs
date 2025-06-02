@@ -1,0 +1,30 @@
+<button>Hover over me</button>
+
+<style>
+  button{
+    position: relative;
+    display: inline-block;
+    padding: 16px 32px;
+    color: var(--black);
+    border:0;
+    font-weight: var(--font-weight-bold);
+    font-size: 1.125rem;
+    isolation: isolate;
+    &:after{
+      content:'';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: -1;
+      content: "";
+      border-radius: 4px;
+      background-color: var(--yellow);
+      transition: transform .25s;
+    }
+    &:hover::after {
+      transform: scale(1.1);
+    }
+  }
+</style>

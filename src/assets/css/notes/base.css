@@ -1,0 +1,27 @@
+/* Redeclaring layers here so we can use them */
+@layer starlight.base, starlight.reset, starlight.core, starlight.content, starlight.components, starlight.utils;
+
+@import "../colors.css" layer(starlight.utils);
+@import "../typography.css" layer(starlight.utils);
+
+:root {
+  --sl-color-bg: light-dark(var(--offwhite), var(--black));
+  --sl-color-bg-sidebar: light-dark(var(--white), var(--grey));
+  --sl-color-bg-nav: var(--sl-color-bg);
+  --sl-color-text-accent: var(--black);
+}
+
+@layer starlight.utils {
+  .header:has(.header) {
+    border-bottom: 2px solid var(--white);
+  }
+  .sidebar-pane {
+    --_btd-sidebar-offset: 1ch;
+    border-radius: 16px;
+    inset-inline-start: var(--_btd-sidebar-offset);
+    inset-block: calc(var(--sl-nav-height) + var(--_btd-sidebar-offset)) var(--_btd-sidebar-offset);
+  }
+  .sl-markdown-content pre:not(:where(.not-content *)) {
+    all: revert;
+  }
+}

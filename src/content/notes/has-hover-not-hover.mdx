@@ -1,0 +1,28 @@
+---
+title: ":has(:hover) > :not(:hover)"
+description: "This selector targets elements that are hovered over, but only if they are not themselves being hovered."
+published: 2025-05-27
+---
+
+import Demo from "@components/demos/has-hover-not-hover.astro"
+import CodeBlock from "@components/CodeBlock.astro"
+
+<Demo />
+
+<CodeBlock language="css">
+```css
+.demo {
+  @media (hover) and (prefers-reduced-motion: no-preference) {
+    & > li {
+      transition: opacity 0.3s ease;
+    }
+
+    &:has(:hover) > li:not(:hover) {
+      opacity: 0.25;
+    }
+
+} }
+
+```
+</CodeBlock>
+

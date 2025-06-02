@@ -1,0 +1,71 @@
+---
+title: "CSS Grid Container"
+description: "Versatile layout container with CSS grid."
+published: 2025-05-27
+---
+
+import SimpleDemo from "@components/demos/css-grid-container.astro"
+import ComplexDemo from "@components/demos/named-grid-container.astro"
+
+CSS Grid is one of the most amazing parts of the CSS language. It gives us a ton of new tools we can use to create sophisticated and fluid layouts.
+
+I have been using it for a while now, and I have found that it is a great way to create a layout container that can be used in many different ways. It is also a great way to create a layout that is responsive and fluid.
+
+The example below shows a simple implementation of a CSS grid that can be used to create a layout with a specific number of rows and columns.
+
+<SimpleDemo rows={3} columns={5} itemPosition={{ rowStart: 1, columnStart: 2, rowEnd: 4, columnEnd: 5 }} />
+
+```css
+.grid {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+}
+```
+
+## Named grid columns
+
+Named grid columns allow you to create a more semantic layout by giving names to the grid lines. This can make it easier to understand the layout and to change it later.
+
+By using named grid columns we can create a psuedo layout API directly in CSS. We can reference track name instead of track numbers, which makes the code more readable and maintainable.
+
+Names that use the `start` and `end` suffixes are automatically worked out by the browser to create a shorthand for `grid-column-start` and `grid-column-end`. This means that you can use the name of the track instead of the numbers, which makes the code more readable.
+
+```css
+.item {
+  /* 👇 shorthand for grid-column-start and grid-column-end */
+  grid-column: c;
+  /* grid-column-start: c-start */
+  /* grid-column-end: c-end */
+}
+```
+
+<ComplexDemo />
+
+This is a typical example of a named grid container that can be used to create a layout with a specific number of columns. The `grid-template-columns` property is used to define the named grid columns, and the `grid-column` property is used to place the items in the grid.
+
+```css
+.wrapper,
+.fullwidth {
+  --_container-gap: 0px;
+  --_container-margin: var(--size-7);
+  --_container-gutter: var(--size-3);
+  --_content-width: 100%;
+  display: grid;
+  column-gap: var(--_container-gap);
+  grid-template-columns:
+    [full-bleed-start] minmax(0, 1fr)
+    [feature-start] minmax(0, calc(var(--rhythm) * 1))
+    [body-start] minmax(0, var(--_content-width))
+    [body-end] minmax(0, calc(var(--rhythm) * 1))
+    [feature-end] minmax(0, 1fr) [full-bleed-end];
+  @media (--md-n-above) {
+    --_container-gutter: var(--size-6);
+    --_container-margin: var(--size-10);
+    --_content-width: 1280px;
+  }
+  & > * {
+    grid-column: body;
+  }
+}
+```

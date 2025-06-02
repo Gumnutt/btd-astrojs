@@ -6,6 +6,8 @@ const uuid = crypto.randomUUID()
 
 const { language } = Astro.props;
 const props = Astro.props;
+
+import "@assets/css/code-block.css";
 ---
 
 <div class="code-block" data-code-block-id={uuid}>

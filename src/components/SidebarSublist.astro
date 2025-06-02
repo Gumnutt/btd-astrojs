@@ -1,0 +1,16 @@
+---
+import type { Props } from '@astrojs/starlight/props';
+import Default from '@astrojs/starlight/components/SidebarSublist.astro';
+---
+<Default sublist={Astro.props.sidebar}></Default>
+<style is:global>
+	@layer starlight.utils {
+		
+		[aria-current='page'],
+		[aria-current='page']:hover,
+		[aria-current='page']:focus {
+			font-weight: 600;
+			background-color: transparent;
+		}
+	}
+</style>

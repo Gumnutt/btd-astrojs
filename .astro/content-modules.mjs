@@ -1,9 +1,16 @@
 
 export default new Map([
-["src/content/posts/next-level-css-variables-with-at-property.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fnext-level-css-variables-with-at-property.mdx&astroContentModuleFlag=true")],
-["src/content/posts/css-gradients-on-borders.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fcss-gradients-on-borders.mdx&astroContentModuleFlag=true")],
 ["src/content/projects/CSS-Magic.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fprojects%2FCSS-Magic.mdx&astroContentModuleFlag=true")],
+["src/content/projects/pttrnplayground.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fprojects%2Fpttrnplayground.mdx&astroContentModuleFlag=true")],
 ["src/content/projects/Ditch-the-setup-struggle.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fprojects%2FDitch-the-setup-struggle.mdx&astroContentModuleFlag=true")],
 ["src/content/projects/data-pipelines.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fprojects%2Fdata-pipelines.mdx&astroContentModuleFlag=true")],
-["src/content/projects/pttrnplayground.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fprojects%2Fpttrnplayground.mdx&astroContentModuleFlag=true")]]);
+["src/content/notes/build-image-with-uri-in-twig.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fnotes%2Fbuild-image-with-uri-in-twig.mdx&astroContentModuleFlag=true")],
+["src/content/posts/next-level-css-variables-with-at-property.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fnext-level-css-variables-with-at-property.mdx&astroContentModuleFlag=true")],
+["src/content/posts/css-gradients-on-borders.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fposts%2Fcss-gradients-on-borders.mdx&astroContentModuleFlag=true")],
+["src/content/notes/css-grid-container.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fnotes%2Fcss-grid-container.mdx&astroContentModuleFlag=true")],
+["src/content/notes/has-hover-not-hover.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fnotes%2Fhas-hover-not-hover.mdx&astroContentModuleFlag=true")],
+["src/content/notes/psuedo-element-scaling.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fnotes%2Fpsuedo-element-scaling.mdx&astroContentModuleFlag=true")],
+["src/content/notes/moving-fields-into-sidebar.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fnotes%2Fmoving-fields-into-sidebar.mdx&astroContentModuleFlag=true")],
+["src/content/notes/logical-operators-in-container-queries.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fnotes%2Flogical-operators-in-container-queries.mdx&astroContentModuleFlag=true")],
+["src/content/notes/type-safety-in-css.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fnotes%2Ftype-safety-in-css.mdx&astroContentModuleFlag=true")]]);
 		

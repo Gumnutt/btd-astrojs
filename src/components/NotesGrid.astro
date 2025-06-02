@@ -1,0 +1,48 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+
+import NoteCard from "./NoteCard.astro"
+import BlockHeading from '../components/BlockHeading.astro';
+
+const notes = await getCollection('notes');
+const layerSizes = [6, 4, 2];
+let start = 0;
+const layers = layerSizes.map((size) => {
+  const slice = notes.slice(start, start + size);
+  start += size;
+  return { notes: slice, intendedSize: size };
+});
+---
+<div class="content-wrap" data-enhanced="true" data-center="true" data-layers="true" data-stagger="range">
+  <main>   
+    <section>
+      <div class="content">
+        <div class="grid">
+          {layers.map(({ notes, intendedSize }) => (
+            <div class="layer">
+              {notes.map((note) => (
+                <div>
+                  <a href={`/notes/${note.id}/`}>
+                    <NoteCard>{note.data.title}</NoteCard>
+                  </a>
+                </div>
+              ))}
+              {
+                // Fill remaining slots with empty divs
+                Array.from({ length: intendedSize - notes.length }).map((_, idx) => (
+                  <div class="placeholder"></div>
+                ))
+              }
+            </div>
+          ))}
+          <div class="scaler">
+            <div class="scaler--inner">
+              <BlockHeading title="Field journal" level={1} size='md' backgroundColor="black" />
+              <p>Explore my notes and thoughts from the field.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>

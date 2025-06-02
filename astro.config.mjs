@@ -4,7 +4,6 @@ import { fileURLToPath, URL } from "node:url"
 // https://astro.build/config
 import mdx from "@astrojs/mdx"
 
-// https://astro.build/config
 export default defineConfig({
   markdown: {
     syntaxHighlight: "prism",
