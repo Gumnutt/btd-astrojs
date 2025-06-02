@@ -38,8 +38,8 @@ We can use a list to provide valid options. Anything other than these exact valu
 
 Two additional cases can be covered with an additional "multiplier" character, which should immediately follow the syntax component name.
 
-- Use + to support a space-separated list, ex. "<length>+"
-- Use # to support a comma-separated list, ex. "<length>#"
+- Use + to support a space-separated list, ex. "`<length>+`"
+- Use # to support a comma-separated list, ex. "`<length>#`"
 
 This can be useful for properties that allow multiple definitions, such as background-image.
 
@@ -47,8 +47,7 @@ This can be useful for properties that allow multiple definitions, such as backg
 @property --bg-gradient {
   syntax: "<image>#";
   inherits: false;
-  initial-value:
-    repeating-linear-gradient(to right, blue 10px 12px, transparent 12px 22px),
-    repeating-linear-gradient(to bottom, blue 10px 12px, transparent 12px 22px);
+  initial-value: repeating-linear-gradient(to right, blue 10px 12px, transparent 12px 22px), repeating-linear-gradient(to bottom, blue 10px 12px, transparent
+        12px 22px);
 }
 ```
