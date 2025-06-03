@@ -87,14 +87,15 @@ const { rows, columns, itemPosition} = Astro.props;
   margin-top: -16px;
   margin-bottom: -16px;
   border-left: 2px dashed color-mix(in srgb, var(--grey) 10%, var(--offwhite));
+  .label{
+    position: absolute;
+    top: -16px;
+    left: 3px;
+    transform: translate(-100%, -50%);
+    font-weight: var(--font-weight-bold);
+  }
 }
-.label{
-  position: absolute;
-  top: -16px;
-  left: 3px;
-  transform: translate(-100%, -50%);
-  font-weight: var(--font-weight-bold);
-}
+
 .overlay{
   position: absolute;
   inset: 0;
