@@ -8,43 +8,6 @@
     --flip: 1;
   }
 }
-[data-enhanced="true"] {
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: scroll()) and (animation-range: 0 100%) {
-      footer > span {
-        animation: flip both steps(1, end);
-        animation-timeline: scroll(root);
-      }
-
-      footer .arm {
-        opacity: var(--flip);
-      }
-
-      footer .table {
-        display: inline-block;
-        transform: translateY(calc(var(--flip) * 90%));
-        translate: calc(16% + (var(--flip) * -16%)) calc(var(--flip) * -45%);
-        rotate: calc((-180 + (var(--flip) * 180)) * 1deg);
-        transition-property: translate, rotate, transform;
-        transition-duration: calc(var(--flip) * 0.2s);
-        transition-duration: 0.2s, 0.24s, 0.5s;
-        transform-origin: 0 50%;
-      }
-
-      .spring {
-        clip-path: inset(0 0 0 0);
-        outline: 1px dashed red;
-      }
-
-      .spring span {
-        display: inline-block;
-        rotate: calc(-180deg + (var(--flip) * 180deg));
-        transition: rotate 0.24s;
-        transform-origin: 50% 150%;
-      }
-    }
-  }
-}
 
 @keyframes fade {
   0%,

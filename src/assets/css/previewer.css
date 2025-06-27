@@ -18,10 +18,22 @@
   &__header {
     display: flex;
     justify-content: space-between;
-    align-items: stretch;
+    align-items: center;
+    flex-wrap: wrap;
     margin-bottom: 0;
     border-bottom: 1px solid var(--vp-border-color);
-    padding-inline-start: var(--vp-inline-padding);
+
+    @media (--md-n-above) {
+      flex-wrap: nowrap;
+      padding-inline-start: var(--vp-inline-padding);
+      padding-inline-end: revert;
+    }
+    h3 {
+      @media (--md-n-below) {
+        padding-inline-start: var(--vp-inline-padding);
+        padding-inline-end: var(--vp-inline-padding);
+      }
+    }
     * {
       margin: 0;
     }
@@ -40,7 +52,7 @@
     margin-block: 0;
     margin-inline: auto;
     overscroll-behavior: contain;
-    @media (--md) {
+    @media (--md-n-above) {
       width: clamp(300px, calc(var(--vp-width) / var(--vp-scale) * 1%), 100%);
     }
   }
@@ -48,20 +60,27 @@
     position: relative;
     display: grid;
     align-self: end;
-    translate: 0 -100%;
     border: 1px solid var(--offwhite);
-    width: fit-content;
+    width: 100%;
     padding-block-start: var(--size-3);
     padding-inline-start: var(--vp-inline-padding);
     background-color: var(--offwhite);
+    @media (--md-n-above) {
+      translate: 0 -100%;
+      width: fit-content;
+    }
     label {
       text-align: center;
       color: var(--vp-border-color);
     }
     input {
-      width: 400px;
+      width: 100%;
+      color: var(--vp-border-color);
       accent-color: var(--vp-border-color);
       scroll-margin-top: var(--space-l);
+      @media (--md-n-above) {
+        width: 400px;
+      }
     }
     input[type="range"] {
       -webkit-appearance: none;
@@ -108,7 +127,14 @@
     }
   }
   &__actions {
-    border-left: 1px solid var(--vp-border-color);
+    border-top: 1px solid var(--vp-border-color);
+    width: 100%;
+    padding-block: var(--vp-inline-padding);
+    @media (--md-n-above) {
+      border-top: unset;
+      border-left: 1px solid var(--vp-border-color);
+      width: revert;
+    }
     button {
       display: flex;
       justify-content: center;
@@ -118,7 +144,11 @@
       height: 100%;
       padding: 0px 16px;
       background-color: transparent;
+      color: var(--vp-border-color);
       gap: 10px;
+      @media (--md-n-below) {
+        width: 100%;
+      }
     }
   }
 }
