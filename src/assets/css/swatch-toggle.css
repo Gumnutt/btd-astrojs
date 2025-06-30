@@ -1,0 +1,77 @@
+.palette-toggle {
+  appearance: none;
+  border: none;
+  background: none;
+  anchor-name: --palette-button;
+}
+
+[popover]:popover-open {
+  opacity: 1;
+  translate: 0 0px;
+}
+[popover] {
+  --curve: linear(
+    0 0%,
+    0.0049 1.09%,
+    0.0199 2.27%,
+    0.0814 4.99%,
+    0.4635 16.59%,
+    0.5584 19.86%,
+    0.6394 23.07%,
+    0.7095 26.35%,
+    0.7696 29.74%,
+    0.8208 33.3%,
+    0.8637 37.08%,
+    0.902 41.52%,
+    0.9323 46.4%,
+    0.9557 51.88%,
+    0.973 58.14%,
+    0.9847 65.2%,
+    0.9924 73.79%,
+    0.9992 100%
+  );
+  opacity: 0;
+  translate: 0 -8px;
+  appearance: none;
+  transition: translate 300ms var(--curve) allow-discrete, opacity 200ms var(--curve) allow-discrete, overlay 200ms var(--curve) allow-discrete,
+    display 200ms var(--curve) allow-discrete;
+  border: none;
+  background-color: transparent;
+  filter: drop-shadow(0 1px 2px hsl(210deg 15% 6%/0.1)) drop-shadow(0 2px 4px hsl(210deg 15% 6%/0.1)) drop-shadow(0 8px 16px hsl(210deg 15% 6%/0.1));
+}
+
+@starting-style {
+  [popover]:popover-open {
+    opacity: 0;
+    translate: 0 -8px;
+  }
+}
+
+.palette-popup {
+  --_po-width: 400px;
+  --_po-offset: 0rem;
+  --_po-background-color: var(--offwhite);
+  top: calc(anchor(--palette-button bottom) + var(--_po-offset));
+  left: calc(anchor(--palette-button right) - var(--_po-width));
+  margin: 0;
+  border-radius: 4px;
+  width: var(--_po-width);
+  padding: 8px;
+  background-color: var(--_po-background-color);
+  color: var(--grey);
+  * {
+    margin: 0;
+  }
+  svg {
+    display: block;
+    overflow: visible;
+    color: var(--_po-background-color);
+    margin-inline-start: auto;
+    transform-origin: 50% 100%;
+    will-change: transform;
+    path {
+      fill: currentColor;
+      stroke: none;
+    }
+  }
+}

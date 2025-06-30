@@ -1,0 +1,37 @@
+.pokemon-palette[popover]:popover-open {
+  opacity: 1;
+  translate: 0px 0;
+}
+.pokemon-palette[popover] {
+  opacity: 0;
+  translate: -8px 0;
+}
+@starting-style {
+  .pokemon-palette[popover]:popover-open {
+    opacity: 0;
+    translate: -8px 0;
+  }
+}
+.pokemon-palette {
+  --_pp-width: 340px;
+  --_pp-offset: 0rem;
+  --_pp-background-color: var(--offwhite);
+  border-radius: 2rem;
+  width: var(--_pp-width);
+  height: calc(100% - 1rem);
+  padding: 2rem 1rem;
+  background-color: var(--_pp-background-color);
+  inset: 0.5rem;
+  .palette-swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    .color-swatch {
+      --swatch-color: white;
+      border-radius: 4px;
+      width: 4rem;
+      background-color: var(--swatch-color);
+      aspect-ratio: 1;
+    }
+  }
+}
