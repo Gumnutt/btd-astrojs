@@ -19,7 +19,13 @@
     </div>
     <div v-if="isLoading">Loading...</div>
     <div v-if="errorMessage" style="color: red; margin-top: 5px">{{ errorMessage }}</div>
-    <img :src="spriteUrl" ref="spriteImg" crossorigin="anonymous" :alt="pokemonName.trim() ? `Sprite of ${pokemonName.trim()}` : 'Pokemon Sprite'" />
+    <img
+      v-if="spriteUrl"
+      :src="spriteUrl"
+      ref="spriteImg"
+      crossorigin="anonymous"
+      :alt="pokemonName.trim() ? `Sprite of ${pokemonName.trim()}` : 'Pokemon Sprite'"
+    />
     <div class="color-swatches" style="margin-top: 10px">
       <div v-for="(color, index) in colors" :key="index" style="display: inline-block; margin-right: 10px; text-align: center">
         <div
@@ -38,7 +44,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, onUnmounted } from "vue"
+import { ref, watch, onMounted, onUnmounted, nextTick } from "vue"
 import ColorThief from "colorthief"
 
 import speciesData from "../utils/species.json"
@@ -58,6 +64,7 @@ const isLoading = ref(false)
 let lastFetchedName = ""
 
 const extractColors = () => {
+  console.log("Running extractColors!")
   if (!spriteImg.value?.naturalWidth) return
   try {
     const colorThief = new ColorThief()
@@ -69,17 +76,33 @@ const extractColors = () => {
     if (!colors.value.length) {
       for (let i = 1; i <= 6; i++) {
         root.style.removeProperty(`--color-${i}`)
+        root.style.removeProperty(`--color-${i}-text`)
       }
     } else {
       colors.value.forEach((color, idx) => {
         root.style.setProperty(`--color-${idx + 1}`, color)
+        // Calculate luminance to determine text color
+        const rgb = palette[idx]
+        const r = rgb[0] / 255
+        const g = rgb[1] / 255
+        const b = rgb[2] / 255
+        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        const textColor = luminance > 0.5 ? "var(--grey)" : "var(--offwhite)"
+        root.style.setProperty(`--color-${idx + 1}-text`, textColor)
       })
       // Remove any extra custom properties from previous palettes
       for (let i = colors.value.length + 1; i <= 6; i++) {
         root.style.removeProperty(`--color-${i}`)
+        root.style.removeProperty(`--color-${i}-text`)
       }
     }
     emit("colors-extracted", colors.value)
+    // Save colors and pokemonName to localStorage
+    localStorage.setItem("savedPalette", JSON.stringify(colors.value))
+    localStorage.setItem("savedPokemonName", pokemonName.value)
+    // Save expiry timestamp 24 hours in the future
+    const expiryTimestamp = Date.now() + 24 * 60 * 60 * 1000
+    localStorage.setItem("savedPaletteExpires", expiryTimestamp.toString())
   } catch (error) {
     console.error("Error extracting colors:", error)
     colors.value = []
@@ -87,8 +110,13 @@ const extractColors = () => {
     const root = document.documentElement
     for (let i = 1; i <= 6; i++) {
       root.style.removeProperty(`--color-${i}`)
+      root.style.removeProperty(`--color-${i}-text`)
     }
     emit("colors-extracted", [])
+    // Remove saved palette from localStorage
+    localStorage.removeItem("savedPalette")
+    localStorage.removeItem("savedPokemonName")
+    localStorage.removeItem("savedPaletteExpires")
   }
 }
 
@@ -172,6 +200,48 @@ onMounted(async () => {
   // Populate pokemonNames from provided JSON keys
   pokemonNames.value = Object.keys(speciesData)
 
+  // Load saved palette and pokemonName from localStorage
+  const savedPalette = localStorage.getItem("savedPalette")
+  const savedName = localStorage.getItem("savedPokemonName")
+  const savedExpires = localStorage.getItem("savedPaletteExpires")
+  const now = Date.now()
+  if (savedExpires && now > Number(savedExpires)) {
+    // Expired, clear localStorage keys
+    localStorage.removeItem("savedPalette")
+    localStorage.removeItem("savedPokemonName")
+    localStorage.removeItem("savedPaletteExpires")
+  } else if (savedPalette) {
+    try {
+      const palette = JSON.parse(savedPalette)
+      colors.value = palette
+      const root = document.documentElement
+      palette.forEach((color, idx) => {
+        root.style.setProperty(`--color-${idx + 1}`, color)
+        // Calculate luminance to determine text color
+        const rgb = color.match(/\d+/g).map(Number)
+        const r = rgb[0] / 255
+        const g = rgb[1] / 255
+        const b = rgb[2] / 255
+        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        const textColor = luminance > 0.5 ? "var(--grey)" : "var(--offwhite)"
+        root.style.setProperty(`--color-${idx + 1}-text`, textColor)
+      })
+      // Remove any extra custom properties from previous palettes
+      for (let i = palette.length + 1; i <= 6; i++) {
+        root.style.removeProperty(`--color-${i}`)
+        root.style.removeProperty(`--color-${i}-text`)
+      }
+      if (savedName) {
+        pokemonName.value = savedName
+      }
+    } catch {
+      // If parsing fails, clear localStorage keys
+      localStorage.removeItem("savedPalette")
+      localStorage.removeItem("savedPokemonName")
+      localStorage.removeItem("savedPaletteExpires")
+    }
+  }
+
   if (spriteImg.value?.complete) {
     extractColors()
   } else {
@@ -183,9 +253,9 @@ onUnmounted(() => {
   spriteImg.value?.removeEventListener("load", onImageLoad)
 })
 
-watch(spriteUrl, (newUrl) => {
+watch(spriteUrl, async (newUrl) => {
+  await nextTick()
   if (!spriteImg.value) return
-  spriteImg.value.src = newUrl
   spriteImg.value.removeEventListener("load", onImageLoad)
   if (spriteImg.value.complete && spriteImg.value.naturalWidth) {
     extractColors()

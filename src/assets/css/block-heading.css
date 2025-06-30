@@ -16,7 +16,7 @@
   font-family: "Geist Mono Variable", monospace;
   color: var(--_block-color);
   &[data-mark-bg="purple"] {
-    --_block-background-color: var(--purple);
+    --_block-background-color: var(--color-1, var(--purple));
   }
   &[data-mark-bg="pink"] {
     --_block-background-color: var(--pink);
@@ -25,7 +25,7 @@
     --_block-background-color: var(--blue);
   }
   &[data-mark-bg="yellow"] {
-    --_block-background-color: var(--yellow);
+    --_block-background-color: var(--color-2, var(--yellow));
   }
   &[data-mark-bg="white"] {
     --_block-color: var(--black);

@@ -17,7 +17,7 @@
   --_pc-padding-block: 30px;
   --_pc-padding-inline: 30px;
   --_pc-radius: 24px;
-  --_pc-background: var(--yellow);
+  --_pc-background: var(--color-2, var(--yellow));
   --_pc-color: var(--black);
   display: grid;
   border-radius: var(--_pc-radius);
