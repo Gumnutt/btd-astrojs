@@ -1,23 +1,37 @@
 <template>
   <aside class="pokemon-palette" id="pokemon-palette" popover>
     <div style="position: relative">
-      <input
-        v-model="pokemonName"
-        @input="onPokemonInput"
-        :disabled="isLoading"
-        placeholder="Enter Pokémon name"
-        @focus="showDropdown = true"
-        @blur="onInputBlur"
-        autocomplete="off"
-        @keyup.enter="pokemonName.trim() && selectPokemon(pokemonName.trim())"
-      />
-      <ul v-if="showDropdown || filteredPokemonNames.length > 0" class="autocomplete-dropdown">
-        <li v-for="(name, idx) in filteredPokemonNames" :key="name" @mousedown.prevent="selectPokemon(name)" @mouseenter="highlightedIdx = idx">
+      <div class="poke-input">
+        <Search :size="16" />
+        <input
+          v-model="pokemonName"
+          @input="onPokemonInput"
+          :disabled="isLoading"
+          placeholder="Enter Pokémon name"
+          @focus="showDropdown = true"
+          @blur="onInputBlur"
+          autocomplete="off"
+          @keyup.enter="pokemonName.trim() && selectPokemon(pokemonName.trim())"
+        />
+      </div>
+
+      <ul v-if="showDropdown || filteredPokemonNames.length > 0" class="poke-dropdown">
+        <!-- <li v-for="(name, idx) in filteredPokemonNames" :key="name" @mousedown.prevent="selectPokemon(name)" @mouseenter="highlightedIdx = idx">
           {{ name }}
-        </li>
+        </li> -->
+        <PokeDropdownItem
+          v-for="(name, idx) in filteredPokemonNames"
+          :key="name"
+          :name="name"
+          @mousedown.prevent="selectPokemon(name)"
+          @mouseenter="highlightedIdx = idx"
+        />
       </ul>
     </div>
-    <div v-if="isLoading">Loading...</div>
+    <button class="poke-button" :disabled="isLoading || !pokemonNames.length" @click="selectRandomPokemon">
+      <Shuffle :size="16" />
+      Random Pokémon
+    </button>
     <div v-if="errorMessage" style="color: red; margin-top: 5px">{{ errorMessage }}</div>
     <img
       v-if="spriteUrl"
@@ -46,6 +60,8 @@
 <script setup>
 import { ref, watch, onMounted, onUnmounted, nextTick } from "vue"
 import ColorThief from "colorthief"
+import { Search, Shuffle } from "lucide-vue-next"
+import PokeDropdownItem from "./PokeDropdownItem.vue"
 
 import speciesData from "../utils/species.json"
 
@@ -194,6 +210,13 @@ const onInputBlur = () => {
     showDropdown.value = false
     highlightedIdx.value = -1
   }, 100)
+}
+
+// Select a random Pokémon from the list and call selectPokemon
+const selectRandomPokemon = () => {
+  if (!pokemonNames.value.length) return
+  const idx = Math.floor(Math.random() * pokemonNames.value.length)
+  selectPokemon(pokemonNames.value[idx])
 }
 
 onMounted(async () => {
