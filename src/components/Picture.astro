@@ -9,7 +9,7 @@ const { image, hasDetail } = Astro.props
 ---
 
 <picture>
-  <Image src={image} alt="hero image" class="hero" width="650" height="650" />
+  <Image src={image} alt="hero image" width="650" height="650" />
   {hasDetail && <div class="hero--detail" />}
 </picture>
 

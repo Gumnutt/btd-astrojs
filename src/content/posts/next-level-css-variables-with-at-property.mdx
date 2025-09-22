@@ -5,6 +5,8 @@ published: "2023-09-24"
 description: "A short explainer of the `@property` CSS At-Rule."
 ---
 
+import Previewer from "../../components/Previewer.astro"
+
 <a href="https://developer.mozilla.org/en-US/docs/Web/Guide/Houdini">CSS Houdini</a> is a set of low-level APIs that expose parts of the CSS rendering
 engine, and give developers access to the CSS Object Model.
 
@@ -55,6 +57,8 @@ With the syntax property, you can now write semantic CSS by specifying a type. T
 - custom-ident (a custom identifier string)
 
 Setting a syntax enables the browser to type-check custom properties. This has many benefits.
+
+<Previewer site_url="https://docs.astro.build/en/guides/content-collections/" title="Testing" client:load />
 
 An example of this would be a CSS animated gradient. Without the use of the `@property` a smooth animation between gradient values is impossible because CSS would parse the gradients values at a string. Below is a live example of an animated gradient, the example showcases the `angle` syntax.
 

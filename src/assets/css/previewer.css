@@ -1,0 +1,30 @@
+.preview-frame {
+  --viewport-width: 100;
+  --viewport-height: 30rem;
+  --viewport-scale: 1;
+  width: 100%;
+  grid-column: 2/5;
+  &__header {
+    margin-bottom: 0;
+    text-align: left;
+  }
+  &__inner {
+  }
+  iframe {
+    display: block;
+    transform: scale(var(--viewport-scale));
+    border: 0;
+    width: clamp(150px, calc(var(--viewport-width) / var(--viewport-scale) * 1%), 100%);
+
+    height: var(--viewport-height);
+    margin-inline: auto;
+    overscroll-behavior: contain;
+    @media (--md) {
+      width: clamp(300px, calc(var(--viewport-width) / var(--viewport-scale) * 1%), 100%);
+    }
+  }
+  &__controls {
+  }
+  &__actions {
+  }
+}

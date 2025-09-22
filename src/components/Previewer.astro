@@ -1,0 +1,41 @@
+---
+interface Props {
+  site_url: string
+  title: string
+}
+
+const uuid = crypto.randomUUID()
+
+const { site_url, title } = Astro.props
+---
+<div class="preview-frame" data-id={uuid}>
+  <header class="preview-frame__header">
+    <h3>{title}</h3>
+  </header>
+  <div class="preview-frame__inner">
+    <iframe src={site_url} loading="lazy" title={title}></iframe>
+    <div class="preview-frame__controls ">
+      <label for=`control-${uuid}`>Resize viewport</label>
+      <input type="range" id=`control-${uuid}` min="30" max="100" value="100" step="1"> 
+    </div>
+    <div class="preview-frame__actions">
+      <button class="button font-special text-step-00" data-control-target=`control-${uuid}`>Activate preview</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const previewFrames = document.querySelectorAll('.preview-frame')
+
+  previewFrames.forEach((frame) => {
+    const id = frame.dataset.id
+    //get the range input
+    const range = frame.querySelector(`#control-${id}`)
+
+    //watch for changes on the range input
+    range.addEventListener('input', (e) => {
+      const value = e.target.value
+      frame.style.setProperty('--viewport-width', value)
+    })
+  })
+</script>
