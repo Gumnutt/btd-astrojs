@@ -48,7 +48,7 @@
   p {
     margin: 0;
     font-size: 48px;
-    font-family: Geist;
+    font-family: var(--font-sans);
     font-weight: 600;
     letter-spacing: -0.96px;
   }

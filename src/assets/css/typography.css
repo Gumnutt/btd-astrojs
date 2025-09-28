@@ -1,5 +1,5 @@
 :root {
-  --font-sans: "Geist Variable", system-ui, sans-serif;
+  --font-sans: 'Geist Variable', sans-serif;
   --font-mono: "Geist Mono Variable", monospace;
 }
 :where(h1, h2, h3, h4, h5, h6, time) {
