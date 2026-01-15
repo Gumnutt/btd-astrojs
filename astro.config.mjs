@@ -4,13 +4,17 @@ import { fileURLToPath, URL } from "node:url"
 // https://astro.build/config
 import mdx from "@astrojs/mdx"
 
+import polyfill from "@oddbird/css-anchor-positioning/fn"
+
+import vue from "@astrojs/vue";
+
 export default defineConfig({
   markdown: {
     syntaxHighlight: "prism",
     extendDefaultPlugins: true,
     gfm: true,
   },
-  integrations: [mdx()],
+  integrations: [mdx(), vue()],
   vite: {
     ssr: {
       noExternal: ["modern-normalize"],

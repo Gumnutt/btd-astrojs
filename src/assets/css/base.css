@@ -36,7 +36,7 @@ body {
 }
 .home--page {
   header {
-    background-color: var(--purple);
+    background-color: var(--color-1, var(--purple));
   }
 }
 .wrapper,

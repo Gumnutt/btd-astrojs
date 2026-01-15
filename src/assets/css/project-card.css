@@ -42,7 +42,7 @@
     --_pjc-background: var(--blue);
   }
   &[data-bg-color="purple"] {
-    --_pjc-background: var(--purple);
+    --_pjc-background: var(--color-1, var(--purple));
     --_pjc-color: var(--white);
   }
   &[data-bg-color="pink"] {
