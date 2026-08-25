@@ -17,7 +17,7 @@ const randomColor = colors[Math.floor(Math.random() * colors.length)]
 const { title, slug, image, description, tags } = Astro.props
 ---
 
-<a href=`projects/${slug}` class="project--card" data-bg-color={randomColor}>
+<a href=`/projects/${slug}` class="project--card" data-bg-color={randomColor}>
   <div class="project--tags">
     {tags && tags.map((tag) => (
       <Pill>{tag}</Pill>
